@@ -2,13 +2,15 @@ class User {
   final String id;
   final String name;
   final String email;
-  final String avatarUrl;
+  final String profileImageUrl;
+  final String role;
 
   const User({
     required this.id,
     required this.name,
     required this.email,
-    required this.avatarUrl,
+    required this.profileImageUrl,
+    required this.role,
   });
 }
   // factory User.fromJson(Map<String, dynamic> json) {
