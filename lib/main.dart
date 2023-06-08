@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talk_parmad/screens/forum_list_page.dart';
 import 'package:talk_parmad/screens/home_page.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class _MyAppState extends State<MyApp> {
         child: Text('Forum Discovery')), // Updated text for the second item
     const Center(
         child: Text('Create Forum')), // Updated text for the third item
-    const Center(child: Text('Forum List')), // Updated text for the fourth item
+    ForumListPage(), // Updated text for the fourth item
     const Center(child: Text('Profile')),
   ];
 
@@ -74,11 +75,8 @@ class _MyAppState extends State<MyApp> {
               label: 'Forum Discovery',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                Icons.add,
-                size: 36.0,
-                color: Colors.black,
-              ), // Updated icon for the third item
+              icon: Icon(Icons.add,
+                  size: 36.0), // Updated icon for the third item
               label: 'Create Forum',
             ),
             BottomNavigationBarItem(

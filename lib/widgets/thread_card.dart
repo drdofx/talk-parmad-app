@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talk_parmad/models/forum.dart';
 import 'package:talk_parmad/models/home_page.dart';
-import 'package:talk_parmad/models/thread.dart';
 
 class ThreadCard extends StatelessWidget {
   final HomePageModel homeData;
