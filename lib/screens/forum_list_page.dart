@@ -3,13 +3,34 @@ import 'package:talk_parmad/widgets/forum_list_card.dart';
 
 class ForumListPage extends StatelessWidget {
   final List<ForumData> forums = [
-    ForumData(name: 'Forum 1', icon: Icons.forum),
-    ForumData(name: 'Forum 2', icon: Icons.forum),
-    ForumData(name: 'Forum 3', icon: Icons.forum),
-    ForumData(name: 'Forum 4', icon: Icons.forum),
-    ForumData(name: 'Forum 5', icon: Icons.forum),
-    ForumData(name: 'Forum 6', icon: Icons.forum),
-    ForumData(name: 'Forum 7', icon: Icons.forum),
+    ForumData(
+        forumName: 'Forum 1',
+        forumImage:
+            "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
+    ForumData(
+        forumName: 'Forum 2',
+        forumImage:
+            "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
+    ForumData(
+        forumName: 'Forum 3',
+        forumImage:
+            "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
+    ForumData(
+        forumName: 'Forum 4',
+        forumImage:
+            "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
+    ForumData(
+        forumName: 'Forum 5',
+        forumImage:
+            "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
+    ForumData(
+        forumName: 'Forum 6',
+        forumImage:
+            "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
+    ForumData(
+        forumName: 'Forum 7',
+        forumImage:
+            "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
     // Add more forum data as needed
   ];
 

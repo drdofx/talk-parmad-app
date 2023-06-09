@@ -19,17 +19,25 @@ class ForumListCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: 16.0,
-                        left: 12.0,
-                        right: 12.0), // Add bottom padding
+                        left: 8.0,
+                        right: 8.0), // Add bottom padding
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         for (int j = i; j < i + 3 && j < forums.length; j++)
                           Column(
                             children: [
-                              Icon(forums[j].icon),
+                              Container(
+                                width: 96.0, // Set desired width
+                                height: 96.0, // Set desired height
+                                child: Image.network(
+                                  forums[j].forumImage,
+                                  fit: BoxFit
+                                      .cover, // Adjust the fit property as needed
+                                ),
+                              ),
                               SizedBox(height: 8.0),
-                              Text(forums[j].name),
+                              Text(forums[j].forumName),
                             ],
                           ),
                       ],
@@ -74,8 +82,8 @@ class ForumListCard extends StatelessWidget {
 }
 
 class ForumData {
-  final String name;
-  final IconData icon;
+  final String forumName;
+  final String forumImage;
 
-  const ForumData({required this.name, required this.icon});
+  const ForumData({required this.forumName, required this.forumImage});
 }

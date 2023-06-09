@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talk_parmad/screens/forum_list_page.dart';
 import 'package:talk_parmad/screens/home_page.dart';
+import 'package:talk_parmad/screens/profile_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,7 @@ class _MyAppState extends State<MyApp> {
     const Center(
         child: Text('Create Forum')), // Updated text for the third item
     ForumListPage(), // Updated text for the fourth item
-    const Center(child: Text('Profile')),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
