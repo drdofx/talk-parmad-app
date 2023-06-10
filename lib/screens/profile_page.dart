@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:talk_parmad/models/home_page.dart';
 import 'package:talk_parmad/widgets/profile_card.dart';
 import 'package:talk_parmad/widgets/thread_card.dart';
-import 'package:talk_parmad/models/thread.dart';
 
 class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-      ),
-      body: ProfilePage(),
-    );
+    return ProfilePage();
   }
 }
 
@@ -107,14 +101,14 @@ class _ProfilePageState extends State<ProfilePage>
             },
           ),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: TabBar(
             controller: _tabController,
             labelColor: Colors.black,
             indicatorColor: Colors.black,
-            tabs: [
+            tabs: const [
               Tab(text: 'Threads'),
               Tab(text: 'Replies'),
             ],

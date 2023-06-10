@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class HomePageModel {
   final int forumId;
   final String forumName;
