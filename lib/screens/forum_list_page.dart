@@ -53,7 +53,8 @@ class ForumListPage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
             child: ForumListCard(forums: forums),
           ),
         ],

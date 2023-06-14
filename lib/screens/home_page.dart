@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talk_parmad/models/forum.dart';
 import 'package:talk_parmad/models/home_page.dart';
-import 'package:talk_parmad/models/thread.dart';
 import 'package:talk_parmad/widgets/thread_card.dart';
 
 class HomePage extends StatelessWidget {
@@ -60,7 +58,7 @@ class HomePage extends StatelessWidget {
       child: Column(
         children: [
           const Padding(
-            padding: EdgeInsets.only(left: 16, top: 8, bottom: 8),
+            padding: EdgeInsets.only(left: 16, top: 8, bottom: 12),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -80,7 +78,7 @@ class HomePage extends StatelessWidget {
               final homePageItem = homePageData[index];
               return Padding(
                 padding:
-                    const EdgeInsets.only(bottom: 8.0), // Add bottom margin
+                    const EdgeInsets.only(bottom: 16.0), // Add bottom margin
                 child: ThreadCard(
                   homeData: homePageItem,
                 ),

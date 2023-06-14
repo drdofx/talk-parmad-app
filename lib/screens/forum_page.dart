@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:talk_parmad/widgets/forum_card.dart';
 import 'package:talk_parmad/widgets/forum_thread_card.dart';
 import 'package:talk_parmad/widgets/sort_button.dart';
-import 'package:talk_parmad/widgets/thread_card.dart';
 
 class ForumPage extends StatelessWidget {
   final List<Map<String, dynamic>> forumData = [

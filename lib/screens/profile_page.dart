@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talk_parmad/models/home_page.dart';
+import 'package:talk_parmad/models/reply_profile.dart';
 import 'package:talk_parmad/widgets/profile_card.dart';
+import 'package:talk_parmad/widgets/reply_card.dart';
 import 'package:talk_parmad/widgets/thread_card.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -64,6 +66,27 @@ class _ProfilePageState extends State<ProfilePage>
     // Add more API response items here
   ];
 
+  final List<Map<String, dynamic>> apiThreadReplyResponse = [
+    {
+      "forum_id": 1,
+      "forum_name": "Informatics",
+      "forum_image":
+          "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg",
+      "thread_title": "Saya butuh bantuan untuk membuat kalkulator di C++",
+      "reply_text":
+          "Anda bisa menggunakan library math.h dan cmath. Tools ini sudah tersedia di C++",
+    },
+    {
+      "forum_id": 1,
+      "forum_name": "Informatics",
+      "forum_image":
+          "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg",
+      "thread_title": "Bagaimana cara menginstall Python di MacOS",
+      "reply_text":
+          "Carilah di google dengan keyword 'how to install python on macos'"
+    },
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -80,6 +103,11 @@ class _ProfilePageState extends State<ProfilePage>
   Widget build(BuildContext context) {
     List<HomePageModel> homePageData = apiResponse.map((data) {
       return HomePageModel.fromJson(data);
+    }).toList();
+
+    List<ReplyProfile> profileThreadReplyData =
+        apiThreadReplyResponse.map((data) {
+      return ReplyProfile.fromJson(data);
     }).toList();
 
     return Column(
@@ -132,14 +160,14 @@ class _ProfilePageState extends State<ProfilePage>
                 },
               ),
               ListView.builder(
-                itemCount: homePageData.length,
+                itemCount: profileThreadReplyData.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final homePageItem = homePageData[index];
+                  final profileThreadItem = profileThreadReplyData[index];
                   return Padding(
                     padding:
                         const EdgeInsets.only(bottom: 8.0), // Add bottom margin
-                    child: ThreadCard(
-                      homeData: homePageItem,
+                    child: ReplyCard(
+                      replyProfileData: profileThreadItem,
                     ),
                   );
                 },

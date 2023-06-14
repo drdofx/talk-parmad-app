@@ -3,6 +3,7 @@ import 'package:talk_parmad/screens/forum_list_page.dart';
 import 'package:talk_parmad/screens/forum_page.dart';
 import 'package:talk_parmad/screens/home_page.dart';
 import 'package:talk_parmad/screens/profile_page.dart';
+import 'package:talk_parmad/screens/thread_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,9 +21,10 @@ class _MyAppState extends State<MyApp> {
 
   final List<Widget> _screens = [
     HomePage(),
-    const Center(
-        child: Text('Forum Discovery')), // Updated text for the second item
+    // const Center(
+    //     child: Text('Forum Discovery')), // Updated text for the second item
     // const Center( child: Text('Create Forum')), // Updated text for the third item
+    ThreadPage(),
     ForumPage(),
     ForumListPage(), // Updated text for the fourth item
     ProfilePage(),
