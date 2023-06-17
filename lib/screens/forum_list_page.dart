@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talk_parmad/models/forum_list.dart';
 import 'package:talk_parmad/widgets/forum_list_card.dart';
 
 class ForumListPage extends StatelessWidget {

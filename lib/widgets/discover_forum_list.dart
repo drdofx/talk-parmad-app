@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:talk_parmad/models/forum_list.dart';
 
-class ForumListCard extends StatelessWidget {
+class DiscoverForumList extends StatelessWidget {
   final List<ForumData> forums;
 
-  const ForumListCard({super.key, required this.forums});
+  const DiscoverForumList({super.key, required this.forums});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              '...or discover these forums!',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
         Card(
           child: Padding(
             padding: const EdgeInsets.only(
@@ -48,35 +61,6 @@ class ForumListCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 32.0),
-        Text(
-          'Last Viewed',
-          style: TextStyle(
-            fontWeight: FontWeight.normal,
-            fontSize: 20.0,
-          ),
-        ),
-        SizedBox(height: 16.0),
-        Card(
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            width: double.infinity,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.folder_open, size: 72.0),
-                SizedBox(height: 16.0),
-                Text(
-                  'Last Viewed Forum',
-                  style: TextStyle(
-                    fontWeight: FontWeight.normal,
-                    fontSize: 20.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
       ],
     );
   }

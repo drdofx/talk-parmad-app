@@ -62,42 +62,49 @@ class ThreadPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.only(left: 16, top: 8, bottom: 12),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              "${threadData['forumData']['forumName']}",
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 16, top: 8, bottom: 12),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "${threadData['forumData']['forumName']}",
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                ThreadDetailCard(
+                  threadTitle: threadData['threadTitle'],
+                  threadText: threadData['threadText'],
+                  creatorData: threadData['creatorData'],
+                ),
+                SizedBox(height: 16.0),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: threadData['replyData'].length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final reply = threadData['replyData'][index];
+                    return ReplyDetailCard(
+                      userName: reply['userName'],
+                      userImage: reply['userImage'],
+                      replyText: reply['replyText'],
+                      numberOfUpvotes: reply['numberOfUpvotes'],
+                      numberOfDownvotes: reply['numberOfDownvotes'],
+                    );
+                  },
+                ),
+                SizedBox(height: 16.0),
+              ],
             ),
           ),
         ),
-        ThreadDetailCard(
-          threadTitle: threadData['threadTitle'],
-          threadText: threadData['threadText'],
-          creatorData: threadData['creatorData'],
-        ),
-        // SizedBox(
-        //     height: 16.0), // Add spacing between the detail card and replies
-        Expanded(
-          child: ListView.builder(
-            itemCount: threadData['replyData'].length,
-            itemBuilder: (BuildContext context, int index) {
-              final reply = threadData['replyData'][index];
-              return ReplyDetailCard(
-                userName: reply['userName'],
-                userImage: reply['userImage'],
-                replyText: reply['replyText'],
-                numberOfUpvotes: reply['numberOfUpvotes'],
-                numberOfDownvotes: reply['numberOfDownvotes'],
-              );
-            },
-          ),
-        ),
-        // SizedBox(height: 16.0),
         ReplyFormInput(),
       ],
     );

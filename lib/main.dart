@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talk_parmad/screens/forum_discovery_page.dart';
 import 'package:talk_parmad/screens/forum_list_page.dart';
 import 'package:talk_parmad/screens/forum_page.dart';
 import 'package:talk_parmad/screens/home_page.dart';
@@ -27,7 +28,8 @@ class _MyAppState extends State<MyApp> {
     ThreadPage(),
     ForumPage(),
     ForumListPage(), // Updated text for the fourth item
-    ProfilePage(),
+    // ProfilePage(),
+    ForumDiscoveryPage(),
   ];
 
   void _onItemTapped(int index) {
