@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:talk_parmad/screens/auth_page.dart';
+import 'package:talk_parmad/screens/create_forum_page.dart';
+import 'package:talk_parmad/screens/create_thread_page.dart';
 import 'package:talk_parmad/screens/forum_discovery_page.dart';
 import 'package:talk_parmad/screens/forum_list_page.dart';
 import 'package:talk_parmad/screens/forum_page.dart';
@@ -26,10 +29,13 @@ class _MyAppState extends State<MyApp> {
     //     child: Text('Forum Discovery')), // Updated text for the second item
     // const Center( child: Text('Create Forum')), // Updated text for the third item
     ThreadPage(),
+    // CreateForumPage(),
+    CreateThreadPage(),
     ForumPage(),
-    ForumListPage(), // Updated text for the fourth item
+    // ForumListPage(), // Updated text for the fourth item
     // ProfilePage(),
-    ForumDiscoveryPage(),
+    // ForumDiscoveryPage(),
+    AuthPage(),
   ];
 
   void _onItemTapped(int index) {

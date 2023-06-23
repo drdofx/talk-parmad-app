@@ -93,10 +93,10 @@ class _DiscoverForumCarouselState extends State<DiscoverForumCarousel> {
             child: AnimatedOpacity(
               opacity: _isScrollable ? 1.0 : 0.0,
               duration: Duration(milliseconds: 300),
-              child: Icon(
-                Icons.arrow_back,
-                color: Colors.white,
-              ),
+              // child: Icon(
+              //   Icons.arrow_back,
+              //   color: Colors.white,
+              // ),
             ),
           ),
           Positioned(
@@ -104,10 +104,10 @@ class _DiscoverForumCarouselState extends State<DiscoverForumCarousel> {
             child: AnimatedOpacity(
               opacity: _isScrollable ? 1.0 : 0.0,
               duration: Duration(milliseconds: 300),
-              child: Icon(
-                Icons.arrow_forward,
-                color: Colors.white,
-              ),
+              // child: Icon(
+              //   Icons.arrow_forward,
+              //   color: Colors.white,
+              // ),
             ),
           ),
         ],
