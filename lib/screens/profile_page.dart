@@ -122,7 +122,7 @@ class _ProfilePageState extends State<ProfilePage>
             year: '2020',
             isActive: true,
             onLogoutPressed: () {
-              // Handle logout button press
+              // set isLoggedIn to false
             },
             onEditProfilePressed: () {
               // Handle edit profile button press

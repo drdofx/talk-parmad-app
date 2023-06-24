@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:talk_parmad/models/thread.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talk_parmad/controllers/auth_controller.dart';
 import 'package:talk_parmad/screens/auth_page.dart';
 import 'package:talk_parmad/screens/create_forum_page.dart';
 import 'package:talk_parmad/screens/create_thread_page.dart';
@@ -9,9 +10,10 @@ import 'package:talk_parmad/screens/forum_page.dart';
 import 'package:talk_parmad/screens/home_page.dart';
 import 'package:talk_parmad/screens/profile_page.dart';
 import 'package:talk_parmad/screens/thread_page.dart';
+import 'package:talk_parmad/services/auth_service.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -22,7 +24,29 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _isLoggedIn = false; // Track the login state
+  late SharedPreferences _sharedPreferences;
+  late AuthService _authService;
+  late AuthController _authController;
+  bool _isInitialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    initializeDependencies();
+  }
+
+  Future<void> initializeDependencies() async {
+    _sharedPreferences = await SharedPreferences.getInstance();
+    _authService = AuthService(baseUrl: 'http://localhost:8080/api/v1');
+    _authController = AuthController(
+      authService: _authService,
+      sharedPreferences: _sharedPreferences,
+    );
+    setState(() {
+      _isInitialized = true;
+    });
+  }
+
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
@@ -39,11 +63,17 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _loginUser() {
-    setState(() {
-      _isLoggedIn = true;
-      _selectedIndex = 0; // Move to the home page after login
-    });
+  void _loginUser(String username, String password) async {
+    final bool loginSuccessful =
+        await _authController.login(username, password);
+
+    if (loginSuccessful) {
+      setState(() {
+        _selectedIndex = 0; // Move to the home page after login
+      });
+    } else {
+      // Handle login failure
+    }
   }
 
   Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
@@ -70,9 +100,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   Scaffold buildScaffold(Widget body, int index) {
-    print(body);
-    print(index);
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -128,9 +155,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    Widget initialScreen;
+    if (!_isInitialized) {
+      return CircularProgressIndicator(); // Show a loading indicator until dependencies are initialized
+    }
 
-    print(_isLoggedIn);
+    final bool _isLoggedIn = _authController.isLoggedIn;
+
+    Widget initialScreen;
 
     if (_isLoggedIn) {
       initialScreen = buildScaffold(
@@ -140,14 +171,9 @@ class _MyAppState extends State<MyApp> {
         ),
         _selectedIndex,
       );
-
-      // print(initialScreen);
     } else {
       initialScreen = AuthPage(loginUser: _loginUser);
     }
-
-    // print context list
-    print(context);
 
     return MaterialApp(
       title: 'Talk Parmad',

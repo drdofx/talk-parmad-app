@@ -3,7 +3,7 @@ import 'package:talk_parmad/widgets/login_form.dart';
 import 'package:talk_parmad/widgets/register_form.dart';
 
 class AuthPage extends StatefulWidget {
-  final void Function() loginUser;
+  final Function(String username, String password) loginUser;
 
   const AuthPage({Key? key, required this.loginUser}) : super(key: key);
 

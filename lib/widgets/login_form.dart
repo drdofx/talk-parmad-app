@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget {
   final VoidCallback onRegisterClicked;
-  final VoidCallback onLoginClicked; // New callback for login button
+  final Function(String username, String password)
+      onLoginClicked; // Updated callback for login button
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -72,7 +73,13 @@ class LoginForm extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: onLoginClicked, // Call the login callback
+                    onPressed: () {
+                      // Call the login callback with the username and password
+                      onLoginClicked(
+                        emailController.text,
+                        passwordController.text,
+                      );
+                    },
                     child: Text('Login'),
                   ),
                 ],
