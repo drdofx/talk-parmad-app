@@ -39,20 +39,31 @@ class DiscoverForumList extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         for (int j = i; j < i + 3 && j < forums.length; j++)
-                          Column(
-                            children: [
-                              Container(
-                                width: 96.0, // Set desired width
-                                height: 96.0, // Set desired height
-                                child: Image.network(
-                                  forums[j].forumImage,
-                                  fit: BoxFit
-                                      .cover, // Adjust the fit property as needed
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                '/forum',
+                                arguments: {
+                                  'forumId': forums[j].forumId,
+                                },
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Container(
+                                  width: 96.0, // Set desired width
+                                  height: 96.0, // Set desired height
+                                  child: Image.network(
+                                    forums[j].forumImage,
+                                    fit: BoxFit
+                                        .cover, // Adjust the fit property as needed
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 8.0),
-                              Text(forums[j].forumName),
-                            ],
+                                SizedBox(height: 8.0),
+                                Text(forums[j].forumName),
+                              ],
+                            ),
                           ),
                       ],
                     ),

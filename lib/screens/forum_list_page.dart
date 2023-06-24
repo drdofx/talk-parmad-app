@@ -5,30 +5,37 @@ import 'package:talk_parmad/widgets/forum_list_card.dart';
 class ForumListPage extends StatelessWidget {
   final List<ForumData> forums = [
     ForumData(
+        forumId: 1,
         forumName: 'Forum 1',
         forumImage:
             "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
     ForumData(
+        forumId: 1,
         forumName: 'Forum 2',
         forumImage:
             "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
     ForumData(
+        forumId: 1,
         forumName: 'Forum 3',
         forumImage:
             "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
     ForumData(
+        forumId: 1,
         forumName: 'Forum 4',
         forumImage:
             "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
     ForumData(
+        forumId: 1,
         forumName: 'Forum 5',
         forumImage:
             "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
     ForumData(
+        forumId: 1,
         forumName: 'Forum 6',
         forumImage:
             "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),
     ForumData(
+        forumId: 1,
         forumName: 'Forum 7',
         forumImage:
             "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg"),

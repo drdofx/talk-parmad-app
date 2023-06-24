@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 
 class LoginForm extends StatelessWidget {
   final VoidCallback onRegisterClicked;
+  final VoidCallback onLoginClicked; // New callback for login button
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
-  const LoginForm({Key? key, required this.onRegisterClicked})
-      : super(key: key);
+  LoginForm({
+    Key? key,
+    required this.onRegisterClicked,
+    required this.onLoginClicked, // Pass the callback function
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +43,7 @@ class LoginForm extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(),
@@ -44,6 +51,7 @@ class LoginForm extends StatelessWidget {
               ),
               SizedBox(height: 16.0),
               TextField(
+                controller: passwordController,
                 decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
@@ -64,9 +72,7 @@ class LoginForm extends StatelessWidget {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      // Add login logic here
-                    },
+                    onPressed: onLoginClicked, // Call the login callback
                     child: Text('Login'),
                   ),
                 ],

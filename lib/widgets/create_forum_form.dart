@@ -24,7 +24,7 @@ class _CreateForumFormState extends State<CreateForumForm> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(0.0),
+      margin: const EdgeInsets.all(16.0),
       // shape: RoundedRectangleBorder(
       //   borderRadius: BorderRadius.circular(8.0),
       // ),
@@ -72,7 +72,7 @@ class _CreateForumFormState extends State<CreateForumForm> {
                 contentPadding: EdgeInsets.symmetric(
                     vertical: 8.0, horizontal: 12.0), // Adjust the padding
               ),
-              maxLines: 2, // Set the maximum number of lines
+              maxLines: 3, // Set the maximum number of lines
             ),
             SizedBox(height: 16.0),
             Row(

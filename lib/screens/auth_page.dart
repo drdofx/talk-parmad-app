@@ -3,7 +3,9 @@ import 'package:talk_parmad/widgets/login_form.dart';
 import 'package:talk_parmad/widgets/register_form.dart';
 
 class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key}) : super(key: key);
+  final void Function() loginUser;
+
+  const AuthPage({Key? key, required this.loginUser}) : super(key: key);
 
   @override
   _AuthPageState createState() => _AuthPageState();
@@ -27,6 +29,8 @@ class _AuthPageState extends State<AuthPage> {
           child: _showLoginForm
               ? LoginForm(
                   onRegisterClicked: _toggleForm,
+                  onLoginClicked:
+                      widget.loginUser, // Pass the loginUser callback
                 )
               : RegisterForm(
                   onLoginClicked: _toggleForm,

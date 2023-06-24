@@ -4,7 +4,12 @@ import 'package:talk_parmad/widgets/reply_form_input.dart';
 import 'package:talk_parmad/widgets/thread_detail_card.dart';
 
 class ThreadPage extends StatelessWidget {
+  final int? threadId;
+
+  ThreadPage({super.key, required this.threadId});
+
   final Map<String, dynamic> threadData = {
+    'threadId': 1,
     'threadTitle': 'What is Lorem Ipsum?',
     'threadText':
         'I need help with my homework. I need to know what is Lorem Ipsum?',
@@ -60,53 +65,63 @@ class ThreadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 16, top: 8, bottom: 12),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "${threadData['forumData']['forumName']}",
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(0xFFCBE0FF),
+        title: const Text(
+          'Talk Parmad',
+          style: TextStyle(color: Colors.black),
+        ),
+        elevation: 0.0,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 16, top: 8, bottom: 12),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "${threadData['forumData']['forumName']}",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                ThreadDetailCard(
-                  threadTitle: threadData['threadTitle'],
-                  threadText: threadData['threadText'],
-                  creatorData: threadData['creatorData'],
-                ),
-                SizedBox(height: 16.0),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: threadData['replyData'].length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final reply = threadData['replyData'][index];
-                    return ReplyDetailCard(
-                      userName: reply['userName'],
-                      userImage: reply['userImage'],
-                      replyText: reply['replyText'],
-                      numberOfUpvotes: reply['numberOfUpvotes'],
-                      numberOfDownvotes: reply['numberOfDownvotes'],
-                    );
-                  },
-                ),
-                SizedBox(height: 16.0),
-              ],
+                  ThreadDetailCard(
+                    threadTitle: threadData['threadTitle'],
+                    threadText: threadData['threadText'],
+                    creatorData: threadData['creatorData'],
+                  ),
+                  SizedBox(height: 16.0),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: threadData['replyData'].length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final reply = threadData['replyData'][index];
+                      return ReplyDetailCard(
+                        userName: reply['userName'],
+                        userImage: reply['userImage'],
+                        replyText: reply['replyText'],
+                        numberOfUpvotes: reply['numberOfUpvotes'],
+                        numberOfDownvotes: reply['numberOfDownvotes'],
+                      );
+                    },
+                  ),
+                  SizedBox(height: 16.0),
+                ],
+              ),
             ),
           ),
-        ),
-        ReplyFormInput(),
-      ],
+          ReplyFormInput(),
+        ],
+      ),
     );
   }
 }

@@ -12,7 +12,7 @@ class _ReplyFormInputState extends State<ReplyFormInput> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.zero, // Remove the default margin
-      padding: EdgeInsets.symmetric(horizontal: 8.0),
+      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
       child: Card(
         child: Padding(
           padding: const EdgeInsets.only(left: 4.0, right: 4.0, bottom: 4.0),

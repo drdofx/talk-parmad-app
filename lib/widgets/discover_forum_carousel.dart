@@ -71,17 +71,28 @@ class _DiscoverForumCarouselState extends State<DiscoverForumCarousel> {
               final screenWidth = MediaQuery.of(context).size.width;
               final cardWidth = screenWidth * 0.8; // Adjust the value as needed
 
-              return Container(
-                width: cardWidth,
-                margin: EdgeInsets.only(right: 16.0),
-                color: Colors.blue, // Replace with your card design
-                child: Center(
-                  child: Text(
-                    cardData[index],
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/forum',
+                    arguments: {
+                      'forumId': index + 1, // Replace with the actual forum ID
+                    },
+                  );
+                },
+                child: Container(
+                  width: cardWidth,
+                  margin: EdgeInsets.only(right: 16.0),
+                  color: Colors.blue, // Replace with your card design
+                  child: Center(
+                    child: Text(
+                      cardData[index],
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
