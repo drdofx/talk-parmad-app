@@ -1,14 +1,17 @@
-// import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talk_parmad/services/auth_service.dart';
 
-class AuthController {
+class AuthController extends ChangeNotifier {
   final AuthService authService;
   final SharedPreferences sharedPreferences;
+  // final BuildContext context;
 
   AuthController({
     required this.authService,
     required this.sharedPreferences,
+    // required this.context,
   });
 
   bool _isLoggedIn = false;
@@ -27,6 +30,8 @@ class AuthController {
 
       _isLoggedIn = true;
 
+      notifyListeners(); // Notify listeners about the login status change
+
       return true; // Login successful
     } catch (e) {
       // Handle login error
@@ -39,5 +44,7 @@ class AuthController {
     // Clear the stored JWT token from shared preferences
     await sharedPreferences.remove('jwtToken');
     _isLoggedIn = false;
+
+    notifyListeners(); // Notify listeners about the login status change
   }
 }

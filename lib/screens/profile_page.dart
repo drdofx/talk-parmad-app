@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:talk_parmad/models/home_page.dart';
+import 'package:talk_parmad/controllers/auth_controller.dart';
 import 'package:talk_parmad/models/reply_profile.dart';
 import 'package:talk_parmad/widgets/profile_card.dart';
+import 'package:talk_parmad/widgets/profile_thread_card.dart';
 import 'package:talk_parmad/widgets/reply_card.dart';
-import 'package:talk_parmad/widgets/thread_card.dart';
 
-class ProfileScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ProfilePage();
-  }
-}
+// class ProfileScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return ProfilePage();
+//   }
+// }
 
 class ProfilePage extends StatefulWidget {
+  final AuthController authController;
+
+  const ProfilePage({Key? key, required this.authController}) : super(key: key);
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
@@ -23,6 +27,7 @@ class _ProfilePageState extends State<ProfilePage>
 
   final List<Map<String, dynamic>> apiResponse = [
     {
+      "user_id": 1,
       "forum_id": 1,
       "forum_name": "Informatics",
       "forum_image":
@@ -32,6 +37,7 @@ class _ProfilePageState extends State<ProfilePage>
       "text": "lorem ipsum lorem ipsum"
     },
     {
+      "user_id": 1,
       "forum_id": 2,
       "forum_name": "Game Dev",
       "forum_image": "",
@@ -40,6 +46,7 @@ class _ProfilePageState extends State<ProfilePage>
       "text": "lorem ipsum lorem ipsum"
     },
     {
+      "user_id": 1,
       "forum_id": 1,
       "forum_name": "Informatics",
       "forum_image": "",
@@ -47,27 +54,12 @@ class _ProfilePageState extends State<ProfilePage>
       "title": "Cara menginstall Python di MacOS",
       "text": "lorem ipsum lorem ipsum"
     },
-    {
-      "forum_id": 4,
-      "forum_name": "Design",
-      "forum_image": "",
-      "thread_id": 6,
-      "title": "Bagaimana cara menggambar baju realistik?",
-      "text": "lorem ipsum lorem ipsum"
-    },
-    {
-      "forum_id": 3,
-      "forum_name": "Business",
-      "forum_image": "",
-      "thread_id": 7,
-      "title": "Apa yang dimaksud dengan blue and red ocean theory?",
-      "text": "lorem ipsum lorem ipsum"
-    },
     // Add more API response items here
   ];
 
   final List<Map<String, dynamic>> apiThreadReplyResponse = [
     {
+      "user_id": 1,
       "forum_id": 1,
       "forum_name": "Informatics",
       "forum_image":
@@ -77,6 +69,7 @@ class _ProfilePageState extends State<ProfilePage>
           "Anda bisa menggunakan library math.h dan cmath. Tools ini sudah tersedia di C++",
     },
     {
+      "user_id": 1,
       "forum_id": 1,
       "forum_name": "Informatics",
       "forum_image":
@@ -101,8 +94,8 @@ class _ProfilePageState extends State<ProfilePage>
 
   @override
   Widget build(BuildContext context) {
-    List<HomePageModel> homePageData = apiResponse.map((data) {
-      return HomePageModel.fromJson(data);
+    List<ThreadProfile> profileThreadData = apiResponse.map((data) {
+      return ThreadProfile.fromJson(data);
     }).toList();
 
     List<ReplyProfile> profileThreadReplyData =
@@ -122,7 +115,8 @@ class _ProfilePageState extends State<ProfilePage>
             year: '2020',
             isActive: true,
             onLogoutPressed: () {
-              // set isLoggedIn to false
+              // call logout() from auth controller
+              widget.authController.logout();
             },
             onEditProfilePressed: () {
               // Handle edit profile button press
@@ -147,14 +141,14 @@ class _ProfilePageState extends State<ProfilePage>
             controller: _tabController,
             children: [
               ListView.builder(
-                itemCount: homePageData.length,
+                itemCount: profileThreadData.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final homePageItem = homePageData[index];
+                  final profileThreadItem = profileThreadData[index];
                   return Padding(
                     padding:
                         const EdgeInsets.only(bottom: 8.0), // Add bottom margin
-                    child: ThreadCard(
-                      homeData: homePageItem,
+                    child: ProfileThreadCard(
+                      threadData: profileThreadItem,
                     ),
                   );
                 },

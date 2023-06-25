@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talk_parmad/controllers/auth_controller.dart';
+import 'package:talk_parmad/controllers/home_controller.dart';
 import 'package:talk_parmad/screens/auth_page.dart';
 import 'package:talk_parmad/screens/create_forum_page.dart';
 import 'package:talk_parmad/screens/create_thread_page.dart';
@@ -11,6 +13,7 @@ import 'package:talk_parmad/screens/home_page.dart';
 import 'package:talk_parmad/screens/profile_page.dart';
 import 'package:talk_parmad/screens/thread_page.dart';
 import 'package:talk_parmad/services/auth_service.dart';
+import 'package:talk_parmad/services/home_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,12 +30,16 @@ class _MyAppState extends State<MyApp> {
   late SharedPreferences _sharedPreferences;
   late AuthService _authService;
   late AuthController _authController;
+  late HomeController _homeController;
   bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
     initializeDependencies();
+    _homeController = HomeController(
+      homeService: HomeService(baseUrl: 'http://localhost:8080/api/v1'),
+    );
   }
 
   Future<void> initializeDependencies() async {
@@ -41,6 +48,7 @@ class _MyAppState extends State<MyApp> {
     _authController = AuthController(
       authService: _authService,
       sharedPreferences: _sharedPreferences,
+      // context: context,
     );
     setState(() {
       _isInitialized = true;
@@ -49,15 +57,19 @@ class _MyAppState extends State<MyApp> {
 
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = [
+  late final List<Widget> _screens = [
     HomePage(),
     ForumDiscoveryPage(),
     CreateForumPage(),
     ForumListPage(),
-    ProfilePage(),
+    ProfilePage(authController: _authController),
   ];
 
   void _onItemTapped(int index) {
+    if (index == 0) {
+      // Refresh data when the home bar is clicked
+      _homeController.refreshData();
+    }
     setState(() {
       _selectedIndex = index;
     });
@@ -159,30 +171,44 @@ class _MyAppState extends State<MyApp> {
       return CircularProgressIndicator(); // Show a loading indicator until dependencies are initialized
     }
 
-    final bool _isLoggedIn = _authController.isLoggedIn;
-
-    Widget initialScreen;
-
-    if (_isLoggedIn) {
-      initialScreen = buildScaffold(
-        IndexedStack(
-          index: _selectedIndex,
-          children: _screens,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AuthController>.value(
+          value: _authController,
         ),
-        _selectedIndex,
-      );
-    } else {
-      initialScreen = AuthPage(loginUser: _loginUser);
-    }
+        ChangeNotifierProvider<HomeController>.value(
+          value: _homeController,
+        ),
+      ],
+      child: MaterialApp(
+        title: 'Talk Parmad',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: const Color(0xFFCBE0FF),
+        ),
+        home: Consumer<AuthController>(
+          builder: (context, authController, _) {
+            final bool isLoggedIn = authController.isLoggedIn;
 
-    return MaterialApp(
-      title: 'Talk Parmad',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: const Color(0xFFCBE0FF),
+            Widget initialScreen;
+
+            if (isLoggedIn) {
+              initialScreen = buildScaffold(
+                IndexedStack(
+                  index: _selectedIndex,
+                  children: _screens,
+                ),
+                _selectedIndex,
+              );
+            } else {
+              initialScreen = AuthPage(loginUser: _loginUser);
+            }
+
+            return initialScreen;
+          },
+        ),
+        onGenerateRoute: _onGenerateRoute,
       ),
-      home: initialScreen,
-      onGenerateRoute: _onGenerateRoute,
     );
   }
 }

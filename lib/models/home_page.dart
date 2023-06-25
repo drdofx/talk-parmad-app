@@ -1,4 +1,5 @@
 class HomePageModel {
+  final int userId;
   final int forumId;
   final String forumName;
   final String forumImage;
@@ -7,6 +8,7 @@ class HomePageModel {
   final int threadId;
 
   HomePageModel({
+    required this.userId,
     required this.forumId,
     required this.forumName,
     required this.forumImage,
@@ -17,6 +19,7 @@ class HomePageModel {
 
   factory HomePageModel.fromJson(Map<String, dynamic> json) {
     return HomePageModel(
+      userId: json['user_id'],
       forumId: json['forum_id'],
       forumName: json['forum_name'],
       forumImage: json['forum_image'],
