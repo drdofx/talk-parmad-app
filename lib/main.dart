@@ -80,6 +80,7 @@ class _MyAppState extends State<MyApp> {
         await _authController.login(username, password);
 
     if (loginSuccessful) {
+      _homeController.refreshData();
       setState(() {
         _selectedIndex = 0; // Move to the home page after login
       });

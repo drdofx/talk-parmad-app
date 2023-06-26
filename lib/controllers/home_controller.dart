@@ -9,27 +9,26 @@ class HomeController extends ChangeNotifier {
     required this.homeService,
   });
 
-  Future<List<HomePageModel>> fetchThreadData() async {
+  List<HomePageModel> _homePageData = [];
+
+  List<HomePageModel> get homePageData => _homePageData;
+
+  Future<void> fetchThreadData() async {
     try {
       final response = await homeService.fetchData();
       final responseData = response['data'] as List<dynamic>;
-      final homePageData =
+      final List<HomePageModel> updatedData =
           responseData.map((data) => HomePageModel.fromJson(data)).toList();
 
-      print(homePageData[0]);
-
-      // notifyListeners();
-
-      return homePageData;
+      _homePageData = updatedData;
+      notifyListeners();
     } catch (e) {
-      print('fetch data failed: $e');
-      return [];
+      print('Fetch data failed: $e');
     }
   }
 
   Future<void> refreshData() async {
     // Call the API again to fetch the updated data
     await fetchThreadData();
-    notifyListeners();
   }
 }

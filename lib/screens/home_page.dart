@@ -9,54 +9,20 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<HomeController>(
       builder: (context, homeController, _) {
+        final List<HomePageModel> homePageData = homeController.homePageData;
+
         return RefreshIndicator(
           onRefresh: homeController.refreshData,
-          child: FutureBuilder<List<HomePageModel>>(
-            future: homeController.fetchThreadData(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                // Show a loading indicator while fetching the data
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                // Handle the error case
-                return Text('Error: ${snapshot.error}');
-              } else {
-                // Data fetched successfully
-                final List<HomePageModel> homePageData = snapshot.data ?? [];
-                return SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.only(left: 16, top: 8, bottom: 12),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            'Welcome back to Talk',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: homePageData.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final homePageItem = homePageData[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 16.0),
-                            child: ThreadCard(
-                              homeData: homePageItem,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              }
+          child: ListView.builder(
+            itemCount: homePageData.length,
+            itemBuilder: (BuildContext context, int index) {
+              final homePageItem = homePageData[index];
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 16.0),
+                child: ThreadCard(
+                  homeData: homePageItem,
+                ),
+              );
             },
           ),
         );
