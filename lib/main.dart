@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talk_parmad/controllers/auth_controller.dart';
+import 'package:talk_parmad/controllers/create_controller.dart';
+import 'package:talk_parmad/controllers/forum_list_controller.dart';
 import 'package:talk_parmad/controllers/home_controller.dart';
 import 'package:talk_parmad/screens/auth_page.dart';
 import 'package:talk_parmad/screens/create_forum_page.dart';
@@ -13,6 +15,8 @@ import 'package:talk_parmad/screens/home_page.dart';
 import 'package:talk_parmad/screens/profile_page.dart';
 import 'package:talk_parmad/screens/thread_page.dart';
 import 'package:talk_parmad/services/auth_service.dart';
+import 'package:talk_parmad/services/create_service.dart';
+import 'package:talk_parmad/services/forum_list_service.dart';
 import 'package:talk_parmad/services/home_service.dart';
 
 void main() {
@@ -28,25 +32,33 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late SharedPreferences _sharedPreferences;
-  late AuthService _authService;
   late AuthController _authController;
   late HomeController _homeController;
+  late ForumListController _forumListController;
+  late CreateForumController _createForumController;
   bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-    initializeDependencies();
+    initializeAuthDependencies();
     _homeController = HomeController(
       homeService: HomeService(baseUrl: 'http://localhost:8080/api/v1'),
     );
+    _forumListController = ForumListController(
+      forumListService:
+          ForumListService(baseUrl: 'http://localhost:8080/api/v1'),
+    );
+    _createForumController = CreateForumController(
+      createForumService:
+          CreateForumService(baseUrl: 'http://localhost:8080/api/v1'),
+    );
   }
 
-  Future<void> initializeDependencies() async {
+  Future<void> initializeAuthDependencies() async {
     _sharedPreferences = await SharedPreferences.getInstance();
-    _authService = AuthService(baseUrl: 'http://localhost:8080/api/v1');
     _authController = AuthController(
-      authService: _authService,
+      authService: AuthService(baseUrl: 'http://localhost:8080/api/v1'),
       sharedPreferences: _sharedPreferences,
       // context: context,
     );
@@ -59,17 +71,29 @@ class _MyAppState extends State<MyApp> {
 
   late final List<Widget> _screens = [
     HomePage(),
-    ForumDiscoveryPage(),
-    CreateForumPage(),
+    ForumListPage(),
+    CreateForumPage(createForumController: _createForumController),
     ForumListPage(),
     ProfilePage(authController: _authController),
   ];
 
   void _onItemTapped(int index) {
-    if (index == 0) {
-      // Refresh data when the home bar is clicked
-      _homeController.refreshData();
+    switch (index) {
+      case 0:
+        _homeController.refreshData();
+        break;
+      case 1:
+        _forumListController.refreshData();
+        break;
+      case 2:
+        break;
+      case 3:
+        _forumListController.refreshData();
+        break;
+      case 4:
+        break;
     }
+
     setState(() {
       _selectedIndex = index;
     });
@@ -179,6 +203,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider<HomeController>.value(
           value: _homeController,
+        ),
+        ChangeNotifierProvider<ForumListController>.value(
+          value: _forumListController,
         ),
       ],
       child: MaterialApp(

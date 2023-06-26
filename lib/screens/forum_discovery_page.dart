@@ -11,42 +11,56 @@ class ForumDiscoveryPage extends StatelessWidget {
       forumName: 'Forum 1',
       forumImage:
           "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg",
+      forumIntroductionText: "ok",
+      forumCategory: "academics",
     ),
     ForumData(
       forumId: 1,
       forumName: 'Forum 2',
       forumImage:
           "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg",
+      forumIntroductionText: "ok",
+      forumCategory: "academics",
     ),
     ForumData(
       forumId: 1,
       forumName: 'Forum 3',
       forumImage:
           "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg",
+      forumIntroductionText: "ok",
+      forumCategory: "academics",
     ),
     ForumData(
       forumId: 1,
       forumName: 'Forum 4',
       forumImage:
           "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg",
+      forumIntroductionText: "ok",
+      forumCategory: "academics",
     ),
     ForumData(
       forumId: 1,
       forumName: 'Forum 5',
       forumImage:
           "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg",
+      forumIntroductionText: "ok",
+      forumCategory: "academics",
     ),
     ForumData(
       forumId: 1,
       forumName: 'Forum 6',
       forumImage:
           "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg",
+      forumIntroductionText: "ok",
+      forumCategory: "academics",
     ),
     ForumData(
       forumId: 1,
       forumName: 'Forum 7',
       forumImage:
           "https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg",
+      forumIntroductionText: "ok",
+      forumCategory: "academics",
     ),
     // Add more forum data as needed
   ];

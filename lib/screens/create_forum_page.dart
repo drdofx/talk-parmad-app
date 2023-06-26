@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:talk_parmad/controllers/create_controller.dart';
 import 'package:talk_parmad/widgets/create_forum_form.dart';
 
 class CreateForumPage extends StatelessWidget {
-  const CreateForumPage({Key? key}) : super(key: key);
+  final CreateForumController createForumController;
+
+  const CreateForumPage({
+    Key? key,
+    required this.createForumController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +27,7 @@ class CreateForumPage extends StatelessWidget {
             ),
           ),
         ),
-        CreateForumForm(),
+        CreateForumForm(createForumController: createForumController),
       ],
     );
   }

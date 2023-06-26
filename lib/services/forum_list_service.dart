@@ -2,16 +2,16 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeService {
+class ForumListService {
   final String baseUrl;
 
-  HomeService({required this.baseUrl});
+  ForumListService({required this.baseUrl});
 
   Future<Map<String, dynamic>> fetchData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('jwtToken');
 
-    final url = Uri.parse('$baseUrl/forum/list-thread');
+    final url = Uri.parse('$baseUrl/forum/list');
     final headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
