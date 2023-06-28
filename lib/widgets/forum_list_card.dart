@@ -10,6 +10,53 @@ class ForumListCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Text(
+          'Last Viewed',
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
+            fontSize: 20.0,
+          ),
+        ),
+        SizedBox(height: 16.0),
+        GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                '/forum',
+                arguments: {
+                  'forumId': 1, // Replace with the actual forum ID
+                },
+              );
+            },
+            child: Card(
+              child: Container(
+                padding: const EdgeInsets.all(16.0),
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.folder_open, size: 72.0),
+                    SizedBox(height: 16.0),
+                    Text(
+                      'Last Viewed Forum',
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 20.0,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            )),
+        SizedBox(height: 32.0),
+        Text(
+          'All Forums',
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
+            fontSize: 20.0,
+          ),
+        ),
+        SizedBox(height: 16.0),
         Card(
           child: Padding(
             padding: const EdgeInsets.only(
@@ -59,45 +106,6 @@ class ForumListCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 32.0),
-        Text(
-          'Last Viewed',
-          style: TextStyle(
-            fontWeight: FontWeight.normal,
-            fontSize: 20.0,
-          ),
-        ),
-        SizedBox(height: 16.0),
-        GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                '/forum',
-                arguments: {
-                  'forumId': 1, // Replace with the actual forum ID
-                },
-              );
-            },
-            child: Card(
-              child: Container(
-                padding: const EdgeInsets.all(16.0),
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.folder_open, size: 72.0),
-                    SizedBox(height: 16.0),
-                    Text(
-                      'Last Viewed Forum',
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 20.0,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ))
       ],
     );
   }

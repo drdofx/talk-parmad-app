@@ -5,6 +5,8 @@ import 'package:talk_parmad/controllers/auth_controller.dart';
 import 'package:talk_parmad/controllers/create_controller.dart';
 import 'package:talk_parmad/controllers/forum_list_controller.dart';
 import 'package:talk_parmad/controllers/home_controller.dart';
+import 'package:talk_parmad/controllers/profile_controller.dart';
+import 'package:talk_parmad/controllers/search_controller.dart';
 import 'package:talk_parmad/screens/auth_page.dart';
 import 'package:talk_parmad/screens/create_forum_page.dart';
 import 'package:talk_parmad/screens/create_thread_page.dart';
@@ -18,6 +20,8 @@ import 'package:talk_parmad/services/auth_service.dart';
 import 'package:talk_parmad/services/create_service.dart';
 import 'package:talk_parmad/services/forum_list_service.dart';
 import 'package:talk_parmad/services/home_service.dart';
+import 'package:talk_parmad/services/profile_service.dart';
+import 'package:talk_parmad/services/search_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -36,6 +40,9 @@ class _MyAppState extends State<MyApp> {
   late HomeController _homeController;
   late ForumListController _forumListController;
   late CreateForumController _createForumController;
+  late SearchForumController _searchForumControler;
+  late UserThreadListController _userThreadListController;
+  late UserReplyListController _userReplyListController;
   bool _isInitialized = false;
 
   @override
@@ -52,6 +59,18 @@ class _MyAppState extends State<MyApp> {
     _createForumController = CreateForumController(
       createForumService:
           CreateForumService(baseUrl: 'http://localhost:8080/api/v1'),
+    );
+    _searchForumControler = SearchForumController(
+      searchForumService:
+          SearchForumService(baseUrl: 'http://localhost:8080/api/v1'),
+    );
+    _userThreadListController = UserThreadListController(
+      userThreadListService:
+          UserThreadListService(baseUrl: 'http://localhost:8080/api/v1'),
+    );
+    _userReplyListController = UserReplyListController(
+      userReplyListService:
+          UserReplyListService(baseUrl: 'http://localhost:8080/api/v1'),
     );
   }
 
@@ -71,10 +90,14 @@ class _MyAppState extends State<MyApp> {
 
   late final List<Widget> _screens = [
     HomePage(),
-    ForumListPage(),
+    ForumDiscoveryPage(searchForumController: _searchForumControler),
     CreateForumPage(createForumController: _createForumController),
     ForumListPage(),
-    ProfilePage(authController: _authController),
+    ProfilePage(
+      authController: _authController,
+      userReplyListController: _userReplyListController,
+      userThreadListController: _userThreadListController,
+    ),
   ];
 
   void _onItemTapped(int index) {
@@ -83,7 +106,7 @@ class _MyAppState extends State<MyApp> {
         _homeController.refreshData();
         break;
       case 1:
-        _forumListController.refreshData();
+        // _forumListController.refreshData();
         break;
       case 2:
         break;
@@ -91,6 +114,7 @@ class _MyAppState extends State<MyApp> {
         _forumListController.refreshData();
         break;
       case 4:
+        _userThreadListController.refreshData();
         break;
     }
 
@@ -99,7 +123,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  void _loginUser(String username, String password) async {
+  Future<bool> _loginUser(String username, String password) async {
     final bool loginSuccessful =
         await _authController.login(username, password);
 
@@ -108,8 +132,11 @@ class _MyAppState extends State<MyApp> {
       setState(() {
         _selectedIndex = 0; // Move to the home page after login
       });
+
+      return true;
     } else {
       // Handle login failure
+      return false;
     }
   }
 
@@ -206,6 +233,12 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider<ForumListController>.value(
           value: _forumListController,
+        ),
+        ChangeNotifierProvider<UserThreadListController>.value(
+          value: _userThreadListController,
+        ),
+        ChangeNotifierProvider<UserReplyListController>.value(
+          value: _userReplyListController,
         ),
       ],
       child: MaterialApp(

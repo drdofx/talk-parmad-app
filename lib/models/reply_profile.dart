@@ -1,57 +1,58 @@
 class ReplyProfile {
-  final int forumId;
-  final String forumName;
-  final String forumImage;
-  final String threadTitle;
-  final String replyText;
+  final ReplyProfileThread thread;
+  final ReplyProfileReply reply;
 
   ReplyProfile({
-    required this.forumId,
-    required this.forumName,
-    required this.forumImage,
-    required this.threadTitle,
-    required this.replyText,
+    required this.thread,
+    required this.reply,
   });
 
   factory ReplyProfile.fromJson(Map<String, dynamic> json) {
+    final threadData = json['thread'] as Map<String, dynamic>;
+    final replyData = json['reply'] as Map<String, dynamic>;
+
+    // print(threadData);
+
     return ReplyProfile(
-      forumId: json['forum_id'],
-      forumName: json['forum_name'],
-      forumImage: json['forum_image'],
-      threadTitle: json['thread_title'],
-      replyText: json['reply_text'],
+      thread: ReplyProfileThread.fromJson(threadData),
+      reply: ReplyProfileReply.fromJson(replyData),
     );
   }
 }
 
-class ThreadProfile {
-  final int userId;
-  final int forumId;
-  final String forumName;
-  final String forumImage;
+class ReplyProfileThread {
+  final int threadId;
   final String threadTitle;
   final String threadText;
-  final int threadId;
 
-  ThreadProfile({
-    required this.userId,
-    required this.forumId,
-    required this.forumName,
-    required this.forumImage,
+  ReplyProfileThread({
+    required this.threadId,
     required this.threadTitle,
     required this.threadText,
-    required this.threadId,
   });
 
-  factory ThreadProfile.fromJson(Map<String, dynamic> json) {
-    return ThreadProfile(
-      userId: json['user_id'],
-      forumId: json['forum_id'],
-      forumName: json['forum_name'],
-      forumImage: json['forum_image'],
+  factory ReplyProfileThread.fromJson(Map<String, dynamic> json) {
+    return ReplyProfileThread(
+      threadId: json['id'],
       threadTitle: json['title'],
       threadText: json['text'],
-      threadId: json['thread_id'],
+    );
+  }
+}
+
+class ReplyProfileReply {
+  final int replyId;
+  final String replyText;
+
+  ReplyProfileReply({
+    required this.replyId,
+    required this.replyText,
+  });
+
+  factory ReplyProfileReply.fromJson(Map<String, dynamic> json) {
+    return ReplyProfileReply(
+      replyId: json['id'],
+      replyText: json['text'],
     );
   }
 }

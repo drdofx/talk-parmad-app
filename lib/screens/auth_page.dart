@@ -20,6 +20,15 @@ class _AuthPageState extends State<AuthPage> {
     });
   }
 
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +38,12 @@ class _AuthPageState extends State<AuthPage> {
           child: _showLoginForm
               ? LoginForm(
                   onRegisterClicked: _toggleForm,
-                  onLoginClicked:
-                      widget.loginUser, // Pass the loginUser callback
+                  onLoginClicked: (username, password) async {
+                    bool success = await widget.loginUser(username, password);
+                    if (!success) {
+                      _showSnackBar('Wrong username or password!');
+                    }
+                  },
                 )
               : RegisterForm(
                   onLoginClicked: _toggleForm,

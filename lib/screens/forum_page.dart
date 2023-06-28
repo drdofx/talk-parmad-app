@@ -76,7 +76,32 @@ class ForumPage extends StatelessWidget {
               threadData: forumData['threadData'],
             ),
             SizedBox(height: 16.0),
-            SortButton(),
+            Padding(
+              padding: const EdgeInsets.only(left: 2.0, right: 20.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SortButton(),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFF70A6F5), // Set the background color
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        // Redirect to create thread
+                        Navigator.pushNamed(context, '/create_thread');
+                      },
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.white, // Set the icon color
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(height: 16.0),
             ListView.builder(
               shrinkWrap: true,

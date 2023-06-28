@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:talk_parmad/controllers/search_controller.dart';
 import 'package:talk_parmad/models/forum_list.dart';
 import 'package:talk_parmad/widgets/discover_forum_list.dart';
 import 'package:talk_parmad/widgets/search_forum_bar.dart';
 import 'package:talk_parmad/widgets/discover_forum_carousel.dart';
 
 class ForumDiscoveryPage extends StatelessWidget {
+  final SearchForumController searchForumController;
+
+  ForumDiscoveryPage({
+    Key? key,
+    required this.searchForumController,
+  }) : super(key: key);
+
   final List<ForumData> forums = [
     ForumData(
       forumId: 1,
@@ -73,7 +81,9 @@ class ForumDiscoveryPage extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 12.0, vertical: 16.0),
-            child: SearchForumBar(), // Add the SearchForumBar widget here
+            child: SearchForumBar(
+              searchForumController: searchForumController,
+            ),
           ),
           Padding(
             padding:

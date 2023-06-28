@@ -62,7 +62,7 @@ class _CreateForumFormState extends State<CreateForumForm> {
       // Display an error message
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Failed to create forum'),
+          content: Text('Sorry, forum name is taken!'),
           backgroundColor: Colors.red,
         ),
       );
@@ -146,18 +146,18 @@ class _CreateForumFormState extends State<CreateForumForm> {
                 ),
                 SizedBox(width: 8.0),
                 // Remove the upload button if not needed
-                // ElevatedButton(
-                //   onPressed: _selectImage,
-                //   style: ElevatedButton.styleFrom(
-                //     backgroundColor: Colors.white,
-                //     shape: CircleBorder(),
-                //     padding: EdgeInsets.all(4.0),
-                //   ),
-                //   child: Icon(
-                //     Icons.upload_file,
-                //     color: Colors.black,
-                //   ),
-                // ),
+                ElevatedButton(
+                  onPressed: _selectImage,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: CircleBorder(),
+                    padding: EdgeInsets.all(4.0),
+                  ),
+                  child: Icon(
+                    Icons.upload_file,
+                    color: Colors.black,
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 16.0),

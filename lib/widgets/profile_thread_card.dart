@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:talk_parmad/models/reply_profile.dart';
+import 'package:talk_parmad/models/thread_profile.dart';
 
 class ProfileThreadCard extends StatelessWidget {
   final ThreadProfile threadData;

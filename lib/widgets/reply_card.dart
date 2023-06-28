@@ -13,7 +13,7 @@ class ReplyCard extends StatelessWidget {
         Navigator.pushNamed(
           context,
           '/thread',
-          arguments: {'threadId': 1},
+          arguments: {'threadId': replyProfileData.thread.threadId},
         );
       },
       child: Container(
@@ -32,18 +32,13 @@ class ReplyCard extends StatelessWidget {
                       Container(
                         height: 80.0,
                         width: double.infinity,
-                        child: replyProfileData.forumImage != ""
-                            ? Image.network(
-                                replyProfileData.forumImage,
-                                fit: BoxFit.cover,
-                              )
-                            : Icon(Icons.image_not_supported),
+                        child: Icon(Icons.image_not_supported),
                       ),
                       SizedBox(height: 2.0),
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          replyProfileData.forumName,
+                          replyProfileData.thread.threadTitle,
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 16.0,
@@ -61,7 +56,7 @@ class ReplyCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        replyProfileData.threadTitle,
+                        replyProfileData.thread.threadTitle,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0,
@@ -70,7 +65,7 @@ class ReplyCard extends StatelessWidget {
                       ),
                       SizedBox(height: 10.0),
                       Text(
-                        replyProfileData.replyText,
+                        replyProfileData.reply.replyText,
                         style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 14.0,
