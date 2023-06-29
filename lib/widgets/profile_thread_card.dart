@@ -49,7 +49,7 @@ class ProfileThreadCard extends StatelessWidget {
                         child: Text(
                           threadData.forumName,
                           style: TextStyle(
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.w500,
                             fontSize: 16.0,
                           ),
                           textAlign: TextAlign.center,
@@ -58,7 +58,7 @@ class ProfileThreadCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 16.0),
+                SizedBox(width: 8.0),
                 Expanded(
                   flex: 2,
                   child: Container(
@@ -67,7 +67,7 @@ class ProfileThreadCard extends StatelessWidget {
                       child: Text(
                         threadData.threadTitle,
                         style: TextStyle(
-                          fontWeight: FontWeight.normal,
+                          fontWeight: FontWeight.w500,
                           fontSize: 16.0,
                         ),
                         textAlign: TextAlign.center,

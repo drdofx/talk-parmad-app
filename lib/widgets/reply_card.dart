@@ -32,15 +32,20 @@ class ReplyCard extends StatelessWidget {
                       Container(
                         height: 80.0,
                         width: double.infinity,
-                        child: Icon(Icons.image_not_supported),
+                        child: replyProfileData.forumImage != ""
+                            ? Image.network(
+                                replyProfileData.forumImage,
+                                fit: BoxFit.cover,
+                              )
+                            : Icon(Icons.image_not_supported),
                       ),
                       SizedBox(height: 2.0),
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          replyProfileData.thread.threadTitle,
+                          replyProfileData.forumName,
                           style: TextStyle(
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.w500,
                             fontSize: 16.0,
                           ),
                           textAlign: TextAlign.center,
@@ -49,7 +54,7 @@ class ReplyCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 16.0),
+                SizedBox(width: 8.0),
                 Expanded(
                   flex: 2,
                   child: Column(
@@ -58,7 +63,7 @@ class ReplyCard extends StatelessWidget {
                       Text(
                         replyProfileData.thread.threadTitle,
                         style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                           fontSize: 16.0,
                         ),
                         textAlign: TextAlign.justify,

@@ -1,5 +1,4 @@
 class ThreadProfile {
-  final int forumId;
   final int createdBy;
   final String forumName;
   final String forumImage;
@@ -9,7 +8,6 @@ class ThreadProfile {
 
   ThreadProfile({
     required this.createdBy,
-    required this.forumId,
     required this.forumName,
     String? forumImage,
     required this.threadTitle,
@@ -21,7 +19,6 @@ class ThreadProfile {
   factory ThreadProfile.fromJson(Map<String, dynamic> json) {
     return ThreadProfile(
       createdBy: json['created_by'],
-      forumId: json['forum_id'],
       forumName: json['forum_name'],
       forumImage: json['forum_image'],
       threadTitle: json['title'],

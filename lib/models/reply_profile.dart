@@ -1,10 +1,14 @@
 class ReplyProfile {
   final ReplyProfileThread thread;
   final ReplyProfileReply reply;
+  final String forumName;
+  final String forumImage;
 
   ReplyProfile({
     required this.thread,
     required this.reply,
+    required this.forumName,
+    required this.forumImage,
   });
 
   factory ReplyProfile.fromJson(Map<String, dynamic> json) {
@@ -16,6 +20,8 @@ class ReplyProfile {
     return ReplyProfile(
       thread: ReplyProfileThread.fromJson(threadData),
       reply: ReplyProfileReply.fromJson(replyData),
+      forumName: json['forum_name'],
+      forumImage: json['forum_image'],
     );
   }
 }
