@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:talk_parmad/models/forum.dart';
 import 'package:talk_parmad/services/forum_detail_service.dart';
 
 class ForumDetailController extends ChangeNotifier {
@@ -8,19 +9,21 @@ class ForumDetailController extends ChangeNotifier {
     required this.forumDetailService,
   });
 
-  Future<Map<String, dynamic>> searchForums(Map<String, dynamic> data) async {
+  ForumDetail _forumDetail = ForumDetail();
+
+  ForumDetail get forumDetail => _forumDetail;
+
+  Future<void> getForumDetail(int forumId) async {
     try {
-      final response = await forumDetailService.getForumDetail(data);
+      final response = await forumDetailService.getForumDetail(forumId);
       final responseData = response['data'] as Map<String, dynamic>;
 
-      print(responseData);
+      final updatedData = ForumDetail.fromJson(responseData);
 
+      _forumDetail = updatedData;
       notifyListeners();
-
-      return responseData;
     } catch (e) {
-      print('Create forum failed: $e');
-      return {};
+      print('Fetch forum detail data failed: $e');
     }
   }
 }

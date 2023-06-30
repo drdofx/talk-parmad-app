@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:talk_parmad/models/forum.dart';
 
 class ForumCard extends StatelessWidget {
   final String forumImage;
   final String forumName;
   final String forumIntroText;
   final String forumTotalMembers;
-  final List<Map<String, dynamic>> threadData;
 
   const ForumCard({
     Key? key,
@@ -13,7 +13,6 @@ class ForumCard extends StatelessWidget {
     required this.forumName,
     required this.forumIntroText,
     required this.forumTotalMembers,
-    required this.threadData,
   }) : super(key: key);
 
   @override
@@ -22,11 +21,12 @@ class ForumCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                flex: 2,
+                flex: 4,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -38,25 +38,47 @@ class ForumCard extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    Text(
-                      forumName,
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        forumName,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     Text(
                       '$forumTotalMembers Members',
                       style: TextStyle(
-                        fontSize: 16.0,
+                        fontSize: 14.0,
                         fontWeight: FontWeight.normal,
                       ),
                     ),
                   ],
                 ),
               ),
+              SizedBox(width: 2.0), // Add some spacing between the columns
               Expanded(
                 flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      forumIntroText,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                      ),
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
+                ),
+              ),
+
+              SizedBox(width: 8.0), // Add some spacing between the columns
+              Expanded(
+                flex: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -74,13 +96,6 @@ class ForumCard extends StatelessWidget {
                           'Join',
                         ),
                       ),
-                    ),
-                    Text(
-                      forumIntroText,
-                      style: TextStyle(
-                        fontSize: 14.0,
-                      ),
-                      textAlign: TextAlign.justify,
                     ),
                   ],
                 ),

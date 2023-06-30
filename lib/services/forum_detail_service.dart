@@ -7,11 +7,11 @@ class ForumDetailService {
 
   ForumDetailService({required this.baseUrl});
 
-  Future<Map<String, dynamic>> getForumDetail(Map<String, dynamic> req) async {
+  Future<Map<String, dynamic>> getForumDetail(int forumId) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('jwtToken');
 
-    final forumId = req['forum_id'];
+    // final forumId = req['forum_id'];
     final url = Uri.parse('$baseUrl/forum/detail?id=$forumId');
     final headers = {
       'Content-Type': 'application/json',
