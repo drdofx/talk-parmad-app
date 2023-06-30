@@ -105,35 +105,44 @@ class _ProfilePageState extends State<ProfilePage>
                     RefreshIndicator(
                       onRefresh:
                           userThreadListController.fetchUserThreadListData,
-                      child: ListView.builder(
-                        itemCount: userThreadListController.threadList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final profileThreadItem =
-                              userThreadListController.threadList[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: ProfileThreadCard(
-                              threadData: profileThreadItem,
+                      child: userThreadListController.threadList.isEmpty
+                          ? const Center(
+                              child: Text('You have not created any threads!'))
+                          : ListView.builder(
+                              itemCount:
+                                  userThreadListController.threadList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final profileThreadItem =
+                                    userThreadListController.threadList[index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: ProfileThreadCard(
+                                    threadData: profileThreadItem,
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
                     ),
                     RefreshIndicator(
                       onRefresh: userReplyListController.fetchUserReplyListData,
-                      child: ListView.builder(
-                        itemCount: userReplyListController.replyList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final profileThreadItem =
-                              userReplyListController.replyList[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(bottom: 8.0),
-                            child: ReplyCard(
-                              replyProfileData: profileThreadItem,
+                      child: userReplyListController.replyList.isEmpty
+                          ? const Center(
+                              child:
+                                  Text('You have not replied to any threads!'))
+                          : ListView.builder(
+                              itemCount:
+                                  userReplyListController.replyList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final profileThreadItem =
+                                    userReplyListController.replyList[index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: ReplyCard(
+                                    replyProfileData: profileThreadItem,
+                                  ),
+                                );
+                              },
                             ),
-                          );
-                        },
-                      ),
                     ),
                   ],
                 ),

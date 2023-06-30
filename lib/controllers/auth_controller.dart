@@ -47,4 +47,20 @@ class AuthController extends ChangeNotifier {
 
     notifyListeners(); // Notify listeners about the login status change
   }
+
+  Future<bool> register(String nim, String email, String password) async {
+    try {
+      final response = await authService.register(nim, email, password);
+      if (response['status'] != 200) {
+        return false;
+      }
+      notifyListeners(); // Notify listeners about the login status change
+
+      return true; // Login successful
+    } catch (e) {
+      // Handle login error
+      print('Register failed: $e');
+      return false;
+    }
+  }
 }

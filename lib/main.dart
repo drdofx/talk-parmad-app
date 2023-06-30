@@ -140,6 +140,14 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  Future<bool> _registerUser(
+      String username, String password, String email) async {
+    final bool registerSuccessful =
+        await _authController.register(username, password, email);
+
+    return registerSuccessful;
+  }
+
   Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/createThread':
@@ -262,7 +270,10 @@ class _MyAppState extends State<MyApp> {
                 _selectedIndex,
               );
             } else {
-              initialScreen = AuthPage(loginUser: _loginUser);
+              initialScreen = AuthPage(
+                loginUser: _loginUser,
+                registerUser: _registerUser,
+              );
             }
 
             return initialScreen;

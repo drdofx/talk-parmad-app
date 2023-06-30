@@ -30,20 +30,47 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: homePageData.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final homePageItem = homePageData[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: ThreadCard(
-                        homeData: homePageItem,
+                homePageData.isEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.only(
+                            top: 24.0, left: 8.0, right: 8.0, bottom: 16.0),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: [
+                              Text(
+                                'No interesting threads found.',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                              SizedBox(height: 16.0),
+                              Text(
+                                'Join a forum now!',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: homePageData.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final homePageItem = homePageData[index];
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: ThreadCard(
+                              homeData: homePageItem,
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ],
             ),
           ),

@@ -4,8 +4,13 @@ import 'package:talk_parmad/widgets/register_form.dart';
 
 class AuthPage extends StatefulWidget {
   final Function(String username, String password) loginUser;
+  final Function(String nim, String email, String password) registerUser;
 
-  const AuthPage({Key? key, required this.loginUser}) : super(key: key);
+  const AuthPage({
+    Key? key,
+    required this.loginUser,
+    required this.registerUser,
+  }) : super(key: key);
 
   @override
   _AuthPageState createState() => _AuthPageState();
@@ -20,11 +25,11 @@ class _AuthPageState extends State<AuthPage> {
     });
   }
 
-  void _showSnackBar(String message) {
+  void _showSnackBar(String message, String status) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Colors.red,
+        backgroundColor: status == 'success' ? Colors.green : Colors.red,
       ),
     );
   }
@@ -41,12 +46,24 @@ class _AuthPageState extends State<AuthPage> {
                   onLoginClicked: (username, password) async {
                     bool success = await widget.loginUser(username, password);
                     if (!success) {
-                      _showSnackBar('Wrong username or password!');
+                      _showSnackBar('Wrong username or password!', 'error');
                     }
                   },
                 )
               : RegisterForm(
                   onLoginClicked: _toggleForm,
+                  onRegisterClicked: (nim, email, password) async {
+                    bool success =
+                        await widget.registerUser(nim, email, password);
+                    if (!success) {
+                      _showSnackBar('Failed to register!', 'error');
+                    } else {
+                      _showSnackBar('Registration successful!', 'success');
+                      // wait 3 seconds before going back to login form
+                      await Future.delayed(const Duration(seconds: 3));
+                      _toggleForm();
+                    }
+                  },
                 ),
         ),
       ),

@@ -28,11 +28,26 @@ class ForumListPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0, vertical: 16.0),
-                child: ForumListCard(forums: forums),
-              ),
+              forums.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.only(
+                          top: 24.0, left: 8.0, right: 8.0, bottom: 16.0),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          'You have not joined any forums yet!',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 16.0),
+                      child: ForumListCard(forums: forums),
+                    ),
             ],
           ),
         );

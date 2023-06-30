@@ -26,5 +26,26 @@ class AuthService {
     }
   }
 
-  // Add more authentication-related methods, such as registration, logout, etc.
+  // Register
+  Future<Map<String, dynamic>> register(
+      String nim, String email, String password) async {
+    final url = Uri.parse('$baseUrl/register');
+    final headers = {'Content-Type': 'application/json'};
+    final body = {
+      'email': email,
+      'nim': nim,
+      'password': password,
+    };
+
+    final response =
+        await http.post(url, headers: headers, body: json.encode(body));
+
+    if (response.statusCode == 200) {
+      // Successful response
+      return json.decode(response.body);
+    } else {
+      // Handle errors or non-200 status codes
+      throw Exception(response.body);
+    }
+  }
 }
