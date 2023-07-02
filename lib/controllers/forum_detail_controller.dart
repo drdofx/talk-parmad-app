@@ -26,4 +26,26 @@ class ForumDetailController extends ChangeNotifier {
       print('Fetch forum detail data failed: $e');
     }
   }
+
+  Future<void> joinForum(int forumId) async {
+    try {
+      await forumDetailService.joinForum(forumId);
+      await getForumDetail(forumId);
+    } catch (e) {
+      print('Join forum failed: $e');
+    }
+  }
+
+  Future<dynamic> createThread(
+      int forumId, String title, String content) async {
+    try {
+      final response =
+          await forumDetailService.createThread(forumId, title, content);
+      final responseData = response['data'] as Map<String, dynamic>;
+
+      return responseData;
+    } catch (e) {
+      print('Create thread failed: $e');
+    }
+  }
 }

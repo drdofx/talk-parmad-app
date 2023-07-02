@@ -56,6 +56,7 @@ class CreateThreadPage extends StatelessWidget {
             forumName: forumData['forumName'],
             forumIntroText: forumData['forumIntroText'],
             forumTotalMembers: forumData['forumTotalMembers'],
+            onJoinClicked: () {},
           ),
           Padding(
             padding: EdgeInsets.only(left: 16, top: 24, bottom: 12),

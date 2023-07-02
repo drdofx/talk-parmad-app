@@ -6,6 +6,7 @@ class ForumCard extends StatelessWidget {
   final String forumName;
   final String forumIntroText;
   final String forumTotalMembers;
+  final VoidCallback onJoinClicked;
 
   const ForumCard({
     Key? key,
@@ -13,6 +14,7 @@ class ForumCard extends StatelessWidget {
     required this.forumName,
     required this.forumIntroText,
     required this.forumTotalMembers,
+    required this.onJoinClicked,
   }) : super(key: key);
 
   @override
@@ -85,7 +87,7 @@ class ForumCard extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: onJoinClicked,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF70A6F5),
                           shape: RoundedRectangleBorder(

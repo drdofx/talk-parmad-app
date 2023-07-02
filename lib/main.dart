@@ -160,7 +160,7 @@ class _MyAppState extends State<MyApp> {
           builder: (context) => ForumPage(forumId: forumId),
         );
       case '/thread':
-        // Retrieve the forum ID from the arguments
+        // Retrieve the thrread ID from the arguments
         final args = settings.arguments as Map<String, dynamic>;
         final threadId = args['threadId'] as int;
         return MaterialPageRoute(

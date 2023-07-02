@@ -52,6 +52,9 @@ class _ForumPageState extends State<ForumPage> {
                     forumName: forum.forum.forumName,
                     forumIntroText: forum.forum.introductionText,
                     forumTotalMembers: forum.numberOfMembers.toString(),
+                    onJoinClicked: () {
+                      forumDetailController.joinForum(forum.forum.id);
+                    },
                   ),
                   SizedBox(height: 16.0),
                   Padding(
@@ -101,8 +104,7 @@ class _ForumPageState extends State<ForumPage> {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16.0),
                               child: ForumThreadCard(
-                                userName: threadItem
-                                    .title, // Assuming "title" represents the userName in your ForumDetailThread model
+                                userName: threadItem.createdBy.toString(),
                                 userImage:
                                     '', // Pass the appropriate user image URL here
                                 threadTitle: threadItem.title,

@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:talk_parmad/controllers/thread_detail_controller.dart';
+import 'package:talk_parmad/services/thread_detail_service.dart';
 import 'package:talk_parmad/widgets/reply_detail_card.dart';
 import 'package:talk_parmad/widgets/reply_form_input.dart';
 import 'package:talk_parmad/widgets/thread_detail_card.dart';
 
-class ThreadPage extends StatelessWidget {
-  final int? threadId;
+class ThreadPage extends StatefulWidget {
+  final int threadId;
 
-  ThreadPage({super.key, required this.threadId});
+  const ThreadPage({Key? key, required this.threadId}) : super(key: key);
+
+  @override
+  _ThreadPageState createState() => _ThreadPageState();
+}
+
+class _ThreadPageState extends State<ThreadPage> {
+  late ThreadDetailController threadDetailController;
+
+  @override
+  void initState() {
+    super.initState();
+    threadDetailController = ThreadDetailController(
+      threadDetailService:
+          ThreadDetailService(baseUrl: 'http://localhost:8080/api/v1'),
+    );
+    threadDetailController.getThreadDetail(widget.threadId);
+  }
 
   final Map<String, dynamic> threadData = {
     'threadId': 1,
@@ -65,62 +85,75 @@ class ThreadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFCBE0FF),
-        title: const Text(
-          'Talk Parmad',
-          style: TextStyle(color: Colors.black),
-        ),
-        elevation: 0.0,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 16, top: 8, bottom: 12),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "${threadData['forumData']['forumName']}",
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+    return ChangeNotifierProvider(
+      create: (context) => threadDetailController,
+      child: Consumer<ThreadDetailController>(
+        builder: (context, threadDetailController, _) {
+          final thread = threadDetailController.threadDetail;
+
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: const Color(0xFFCBE0FF),
+              title: const Text(
+                'Talk Parmad',
+                style: TextStyle(color: Colors.black),
+              ),
+              elevation: 0.0,
+            ),
+            body: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: 16, top: 8, bottom: 12),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "Informatics Forum",
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        ThreadDetailCard(
+                          threadTitle: thread.thread.title,
+                          threadText: thread.thread.text,
+                          creatorData: threadData['creatorData'],
+                          numberOfReplies: thread.totalReplies,
+                          numberOfUpvotes: thread.totalUpvotes,
+                          numberOfDownvotes: thread.totalDownvotes,
+                        ),
+                        SizedBox(height: 16.0),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: thread.replies.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final reply = thread.replies[index];
+                            return ReplyDetailCard(
+                              userName: reply.createdBy,
+                              userImage: "https://picsum.photos/200/300",
+                              replyText: reply.text,
+                              numberOfUpvotes: reply.totalUpvotes,
+                              numberOfDownvotes: reply.totalDownvotes,
+                            );
+                          },
+                        ),
+                        SizedBox(height: 16.0),
+                      ],
                     ),
                   ),
-                  ThreadDetailCard(
-                    threadTitle: threadData['threadTitle'],
-                    threadText: threadData['threadText'],
-                    creatorData: threadData['creatorData'],
-                  ),
-                  SizedBox(height: 16.0),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: threadData['replyData'].length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final reply = threadData['replyData'][index];
-                      return ReplyDetailCard(
-                        userName: reply['userName'],
-                        userImage: reply['userImage'],
-                        replyText: reply['replyText'],
-                        numberOfUpvotes: reply['numberOfUpvotes'],
-                        numberOfDownvotes: reply['numberOfDownvotes'],
-                      );
-                    },
-                  ),
-                  SizedBox(height: 16.0),
-                ],
-              ),
+                ),
+                ReplyFormInput(),
+              ],
             ),
-          ),
-          ReplyFormInput(),
-        ],
+          );
+        },
       ),
     );
   }
