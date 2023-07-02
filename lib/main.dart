@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talk_parmad/controllers/auth_controller.dart';
 import 'package:talk_parmad/controllers/create_controller.dart';
+import 'package:talk_parmad/controllers/forum_discovery_controller.dart';
 import 'package:talk_parmad/controllers/forum_list_controller.dart';
 import 'package:talk_parmad/controllers/home_controller.dart';
 import 'package:talk_parmad/controllers/profile_controller.dart';
@@ -18,6 +19,7 @@ import 'package:talk_parmad/screens/profile_page.dart';
 import 'package:talk_parmad/screens/thread_page.dart';
 import 'package:talk_parmad/services/auth_service.dart';
 import 'package:talk_parmad/services/create_service.dart';
+import 'package:talk_parmad/services/forum_discovery_service.dart';
 import 'package:talk_parmad/services/forum_list_service.dart';
 import 'package:talk_parmad/services/home_service.dart';
 import 'package:talk_parmad/services/profile_service.dart';
@@ -43,6 +45,7 @@ class _MyAppState extends State<MyApp> {
   late SearchForumController _searchForumControler;
   late UserThreadListController _userThreadListController;
   late UserReplyListController _userReplyListController;
+  late ForumDiscoveryController _forumDiscoveryController;
   bool _isInitialized = false;
 
   @override
@@ -71,6 +74,10 @@ class _MyAppState extends State<MyApp> {
     _userReplyListController = UserReplyListController(
       userReplyListService:
           UserReplyListService(baseUrl: 'http://localhost:8080/api/v1'),
+    );
+    _forumDiscoveryController = ForumDiscoveryController(
+      forumDiscoveryService:
+          ForumDiscoveryService(baseUrl: 'http://localhost:8080/api/v1'),
     );
   }
 
@@ -106,7 +113,7 @@ class _MyAppState extends State<MyApp> {
         _homeController.refreshData();
         break;
       case 1:
-        // _forumListController.refreshData();
+        _forumDiscoveryController.refreshData();
         break;
       case 2:
         break;
@@ -151,7 +158,9 @@ class _MyAppState extends State<MyApp> {
   Route<dynamic>? _onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/createThread':
-        return MaterialPageRoute(builder: (context) => CreateThreadPage());
+        return MaterialPageRoute(
+          builder: (context) => CreateThreadPage(),
+        );
       case '/forum':
         // Retrieve the forum ID from the arguments
         final args = settings.arguments as Map<String, dynamic>;
@@ -238,6 +247,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider<HomeController>.value(
           value: _homeController,
+        ),
+        ChangeNotifierProvider<ForumDiscoveryController>.value(
+          value: _forumDiscoveryController,
         ),
         ChangeNotifierProvider<ForumListController>.value(
           value: _forumListController,

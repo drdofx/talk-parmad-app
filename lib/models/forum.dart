@@ -3,12 +3,14 @@ class ForumDetail {
   final List<ForumDetailThread> thread;
   final int totalThreads;
   final int numberOfMembers;
+  final bool isMember;
 
   ForumDetail({
     this.forum = const ForumDetailForum(),
     this.thread = const [], // Update the default value here
     this.totalThreads = 0,
     this.numberOfMembers = 0,
+    this.isMember = false,
   });
 
   factory ForumDetail.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class ForumDetail {
       thread: thread,
       totalThreads: json['total_threads'],
       numberOfMembers: json['number_of_members'],
+      isMember: json['is_member'],
     );
   }
 }
@@ -61,14 +64,17 @@ class ForumDetailThread {
   final int id;
   final String title;
   final String text;
-  final int createdBy;
+  final String createdBy;
+  final String createdByImage;
 
   const ForumDetailThread({
     this.id = 0,
     this.title = '',
     this.text = '',
-    this.createdBy = 0,
-  });
+    this.createdBy = '',
+    String? createdByImage,
+  }) : createdByImage = createdByImage ??
+            'https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg';
 
   factory ForumDetailThread.fromJson(Map<String, dynamic> json) {
     return ForumDetailThread(

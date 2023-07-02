@@ -19,6 +19,7 @@ class _CreateForumFormState extends State<CreateForumForm> {
 
   TextEditingController _forumNameController = TextEditingController();
   TextEditingController _forumDescriptionController = TextEditingController();
+  String _forumCategoryController = 'Academics';
 
   void _selectImage() async {
     // Add your image selection logic here
@@ -40,7 +41,7 @@ class _CreateForumFormState extends State<CreateForumForm> {
   void _createForum() async {
     final forumName = _forumNameController.text;
     final forumDescription = _forumDescriptionController.text;
-    final forumCategory = 'category'; // Replace with the desired category value
+    final forumCategory = _forumCategoryController;
 
     // Create a JSON object with the desired field names
     final forumData = {
@@ -110,7 +111,9 @@ class _CreateForumFormState extends State<CreateForumForm> {
                 );
               }).toList(),
               onChanged: (value) {
-                // Update the respective variable or perform additional logic
+                setState(() {
+                  _forumCategoryController = value!;
+                });
               },
             ),
             SizedBox(height: 16.0),

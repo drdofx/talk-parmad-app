@@ -72,18 +72,18 @@ class _CreateThreadFormState extends State<CreateThreadForm> {
             ),
             SizedBox(height: 16.0),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Add cancel logic here
-                  },
-                  child: Text('Cancel'),
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0),
-                    backgroundColor: Colors.red,
-                  ),
-                ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     // Add cancel logic here
+                //   },
+                //   child: Text('Cancel'),
+                //   style: ElevatedButton.styleFrom(
+                //     padding: EdgeInsets.symmetric(horizontal: 16.0),
+                //     backgroundColor: Colors.red,
+                //   ),
+                // ),
                 ElevatedButton(
                   onPressed: _postThread,
                   child: Text('Post'),

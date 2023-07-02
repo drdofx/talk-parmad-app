@@ -27,6 +27,11 @@ class ForumDetailController extends ChangeNotifier {
     }
   }
 
+  Future<void> refreshData(int forumId) async {
+    // Call the API again to fetch the updated data
+    await getForumDetail(forumId);
+  }
+
   Future<void> joinForum(int forumId) async {
     try {
       await forumDetailService.joinForum(forumId);
