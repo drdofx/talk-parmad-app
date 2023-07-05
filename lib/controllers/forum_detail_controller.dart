@@ -41,12 +41,14 @@ class ForumDetailController extends ChangeNotifier {
     }
   }
 
-  Future<dynamic> createThread(
-      int forumId, String title, String content) async {
+  Future<dynamic> createThread(Map<String, dynamic> data) async {
     try {
-      final response =
-          await forumDetailService.createThread(forumId, title, content);
+      final response = await forumDetailService.createThread(data);
       final responseData = response['data'] as Map<String, dynamic>;
+
+      print(responseData);
+
+      notifyListeners();
 
       return responseData;
     } catch (e) {

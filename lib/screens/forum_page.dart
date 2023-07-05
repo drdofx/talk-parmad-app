@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:talk_parmad/controllers/create_controller.dart';
 import 'package:talk_parmad/controllers/forum_detail_controller.dart';
 import 'package:talk_parmad/services/forum_detail_service.dart';
 import 'package:talk_parmad/widgets/create_thread_form.dart';
@@ -79,20 +80,23 @@ class _ForumPageState extends State<ForumPage> {
                               color:
                                   Color(0xFF70A6F5), // Set the background color
                             ),
-                            child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  showCreateThreadForm = !showCreateThreadForm;
-                                });
-                              },
-                              icon: Icon(
-                                showCreateThreadForm
-                                    ? Icons.close
-                                    : Icons
-                                        .add, // Set the add icon if the form is not visible, else set the close icon
-                                color: Colors.white, // Set the icon color
-                              ),
-                            ),
+                            child: forum.isMember
+                                ? IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        showCreateThreadForm =
+                                            !showCreateThreadForm;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      showCreateThreadForm
+                                          ? Icons.close
+                                          : Icons
+                                              .add, // Set the add icon if the form is not visible, else set the close icon
+                                      color: Colors.white, // Set the icon color
+                                    ),
+                                  )
+                                : Container(),
                           ),
                         ],
                       ),
@@ -114,7 +118,10 @@ class _ForumPageState extends State<ForumPage> {
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 16.0, vertical: 8.0),
-                            child: CreateThreadForm(),
+                            child: CreateThreadForm(
+                              createThreadController: forumDetailController,
+                              forumId: forum.forum.id,
+                            ),
                           ),
                         ],
                       ),

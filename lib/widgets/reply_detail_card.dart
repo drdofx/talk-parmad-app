@@ -6,6 +6,8 @@ class ReplyDetailCard extends StatelessWidget {
   final String replyText;
   final int numberOfUpvotes;
   final int numberOfDownvotes;
+  final VoidCallback onUpvote;
+  final VoidCallback onDownvote;
 
   ReplyDetailCard({
     required this.userName,
@@ -13,6 +15,8 @@ class ReplyDetailCard extends StatelessWidget {
     required this.replyText,
     required this.numberOfUpvotes,
     required this.numberOfDownvotes,
+    required this.onUpvote,
+    required this.onDownvote,
   });
 
   @override
@@ -52,7 +56,7 @@ class ReplyDetailCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 8.0),
+              SizedBox(width: 4.0),
               Flexible(
                 flex: 3,
                 child: Align(
@@ -60,56 +64,89 @@ class ReplyDetailCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12.0,
-                            vertical: 8.0,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                        child: Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0,
+                              vertical: 8.0,
+                            ),
+                            child: Text(
+                              replyText,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              textAlign: TextAlign.justify,
+                            ),
                           ),
-                          child: Text(
-                            replyText,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 4.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          ElevatedButton(
+                            onPressed: onUpvote,
+                            style: ElevatedButton.styleFrom(
+                              shape: CircleBorder(),
+                              backgroundColor: Colors.green,
+                            ),
+                            child: Icon(
+                              Icons.thumb_up,
+                              size: 24.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                          // IconButton(
+                          //     onPressed: onUpvote,
+                          //     icon: Container(
+                          //       width: 48,
+                          //       height: 48,
+                          //       decoration: BoxDecoration(
+                          //         shape: BoxShape.circle,
+                          //         color: Colors.green,
+                          //       ),
+                          //       child: Icon(
+                          //         Icons.thumb_up,
+                          //         size: 24.0,
+                          //         color: Colors.white,
+                          //       ),
+                          //     )),
+                          // SizedBox(width: 4.0),
+                          Text(
+                            '$numberOfUpvotes',
                             style: TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.normal,
                             ),
-                            textAlign: TextAlign.justify,
                           ),
-                        ),
-                      ),
-                      SizedBox(height: 8.0),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.thumb_up,
-                              size: 24.0,
-                              color: Colors.green,
+                          // SizedBox(width: 8.0),
+                          ElevatedButton(
+                            onPressed: onDownvote,
+                            style: ElevatedButton.styleFrom(
+                              shape: CircleBorder(),
+                              backgroundColor: Colors.red,
                             ),
-                            SizedBox(width: 4.0),
-                            Text(
-                              '$numberOfUpvotes',
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                            SizedBox(width: 8.0),
-                            Icon(
+                            child: Icon(
                               Icons.thumb_down,
                               size: 24.0,
-                              color: Colors.red,
+                              color: Colors.white,
                             ),
-                            SizedBox(width: 4.0),
-                            Text(
-                              '$numberOfDownvotes',
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.normal,
-                              ),
+                          ),
+                          // SizedBox(width: 4.0),
+                          Text(
+                            '$numberOfDownvotes',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.normal,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

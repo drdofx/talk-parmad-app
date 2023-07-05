@@ -194,6 +194,8 @@ class _MyAppState extends State<MyApp> {
               });
             },
             icon: const Icon(Icons.person),
+            color: Colors.black,
+            iconSize: 28.0,
           ),
         ],
         elevation: 0.0,
@@ -262,6 +264,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Talk Parmad',
         theme: ThemeData(
           primarySwatch: Colors.blue,

@@ -46,8 +46,8 @@ class _SearchForumBarState extends State<SearchForumBar> {
               ), // Set the icon color to black
               border: InputBorder.none, // Remove the border
               contentPadding: EdgeInsets.symmetric(
-                  vertical: 12.0,
-                  horizontal: 12.0), // Add padding to the content
+                  vertical: 16.0,
+                  horizontal: 16.0), // Add padding to the content
             ),
             onSubmitted: _handleSubmit,
           ),

@@ -1,8 +1,16 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:talk_parmad/controllers/forum_detail_controller.dart';
 
 class CreateThreadForm extends StatefulWidget {
-  const CreateThreadForm({Key? key}) : super(key: key);
+  final ForumDetailController createThreadController;
+  final int forumId;
+
+  const CreateThreadForm({
+    Key? key,
+    required this.createThreadController,
+    required this.forumId,
+  }) : super(key: key);
 
   @override
   _CreateThreadFormState createState() => _CreateThreadFormState();
@@ -19,18 +27,48 @@ class _CreateThreadFormState extends State<CreateThreadForm> {
     super.dispose();
   }
 
-  void _postThread() {
-    String title = _titleController.text;
-    String content = _contentController.text;
+  void navigateToThreadPage(int threadId) {
+    Navigator.pushNamed(context, '/thread', arguments: {
+      'threadId': threadId,
+    });
+  }
+
+  void _postThread() async {
+    final title = _titleController.text;
+    final content = _contentController.text;
 
     // Create a JSON object
-    Map<String, dynamic> threadData = {
+    final threadData = {
       'title': title,
-      'content': content,
+      'text': content,
+      'forum_id': widget.forumId.toString(),
     };
 
-    String json = jsonEncode(threadData);
-    print(json); // Replace with your desired logic for handling the JSON data
+    print(threadData);
+
+    var created = await widget.createThreadController.createThread(threadData);
+
+    print(created);
+
+    if (created.isNotEmpty) {
+      // Refresh the forum detail page
+      widget.createThreadController.refreshData(widget.forumId);
+
+      // Clear the text fields
+      _titleController.clear();
+      _contentController.clear();
+
+      // Navigate to the created thread page
+      navigateToThreadPage(created['id']);
+    } else {
+      // Show an error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to create thread'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -74,16 +112,6 @@ class _CreateThreadFormState extends State<CreateThreadForm> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                // ElevatedButton(
-                //   onPressed: () {
-                //     // Add cancel logic here
-                //   },
-                //   child: Text('Cancel'),
-                //   style: ElevatedButton.styleFrom(
-                //     padding: EdgeInsets.symmetric(horizontal: 16.0),
-                //     backgroundColor: Colors.red,
-                //   ),
-                // ),
                 ElevatedButton(
                   onPressed: _postThread,
                   child: Text('Post'),

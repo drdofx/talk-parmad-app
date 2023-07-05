@@ -17,6 +17,7 @@ class ThreadPage extends StatefulWidget {
 
 class _ThreadPageState extends State<ThreadPage> {
   late ThreadDetailController threadDetailController;
+  int? thisThreadId;
 
   @override
   void initState() {
@@ -26,61 +27,17 @@ class _ThreadPageState extends State<ThreadPage> {
           ThreadDetailService(baseUrl: 'http://localhost:8080/api/v1'),
     );
     threadDetailController.getThreadDetail(widget.threadId);
+
+    thisThreadId = widget.threadId;
   }
 
-  final Map<String, dynamic> threadData = {
-    'threadId': 1,
-    'threadTitle': 'What is Lorem Ipsum?',
-    'threadText':
-        'I need help with my homework. I need to know what is Lorem Ipsum?',
-    'creatorData': {
-      "userName": "John Doe",
-      "userImage":
-          "https://static.vecteezy.com/system/resources/previews/007/901/920/non_2x/man-with-a-beard-and-glasses-porter-character-for-the-avatar-trendy-style-illustration-for-icon-avatars-portrait-design-vector.jpg",
-      "year": "2020",
-      "major": "Computer Science",
-      "isActive": true,
-    },
-    'forumData': {
-      "forumName": "Informatics Forum",
-    },
-    'replyData': [
-      {
-        "userName": "John Doe",
-        "userImage":
-            "https://static.vecteezy.com/system/resources/previews/007/901/920/non_2x/man-with-a-beard-and-glasses-porter-character-for-the-avatar-trendy-style-illustration-for-icon-avatars-portrait-design-vector.jpg",
-        "replyText":
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry, Lorem Ipsum has been the industry standard dummy text ever since the 1500s",
-        "numberOfUpvotes": 2,
-        "numberOfDownvotes": 1,
-      },
-      {
-        "userName": "Jane Doe",
-        "userImage":
-            "https://static.vecteezy.com/system/resources/previews/007/901/920/non_2x/man-with-a-beard-and-glasses-porter-character-for-the-avatar-trendy-style-illustration-for-icon-avatars-portrait-design-vector.jpg",
-        "replyText":
-            "I don't know what Lorem Ipsum is either. I'm also looking for help.",
-        "numberOfUpvotes": 2,
-        "numberOfDownvotes": 1,
-      },
-      {
-        "userName": "Jane Doe",
-        "userImage":
-            "https://static.vecteezy.com/system/resources/previews/007/901/920/non_2x/man-with-a-beard-and-glasses-porter-character-for-the-avatar-trendy-style-illustration-for-icon-avatars-portrait-design-vector.jpg",
-        "replyText": "Lorem ipsum dolor?",
-        "numberOfUpvotes": 0,
-        "numberOfDownvotes": 10,
-      },
-      {
-        "userName": "Jane Doe",
-        "userImage":
-            "https://static.vecteezy.com/system/resources/previews/007/901/920/non_2x/man-with-a-beard-and-glasses-porter-character-for-the-avatar-trendy-style-illustration-for-icon-avatars-portrait-design-vector.jpg",
-        "replyText":
-            "You dont know what Lorem Ipsum is? It's a dummy text used in the printing and typesetting industry. It's been used since the 1500s",
-        "numberOfUpvotes": 2,
-        "numberOfDownvotes": 1,
-      },
-    ]
+  final Map<String, dynamic> creatorData = {
+    "userName": "John Doe",
+    "userImage":
+        "https://static.vecteezy.com/system/resources/previews/007/901/920/non_2x/man-with-a-beard-and-glasses-porter-character-for-the-avatar-trendy-style-illustration-for-icon-avatars-portrait-design-vector.jpg",
+    "year": "2020",
+    "major": "Computer Science",
+    "isActive": true,
   };
 
   @override
@@ -100,57 +57,80 @@ class _ThreadPageState extends State<ThreadPage> {
               ),
               elevation: 0.0,
             ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding:
-                              EdgeInsets.only(left: 16, top: 8, bottom: 12),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              "Informatics Forum",
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+            body: RefreshIndicator(
+              onRefresh: () =>
+                  threadDetailController.refreshData(thisThreadId!),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsets.only(left: 16, top: 8, bottom: 12),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                "Informatics Forum",
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        ThreadDetailCard(
-                          threadTitle: thread.thread.title,
-                          threadText: thread.thread.text,
-                          creatorData: threadData['creatorData'],
-                          numberOfReplies: thread.totalReplies,
-                          numberOfUpvotes: thread.totalUpvotes,
-                          numberOfDownvotes: thread.totalDownvotes,
-                        ),
-                        SizedBox(height: 16.0),
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: thread.replies.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            final reply = thread.replies[index];
-                            return ReplyDetailCard(
-                              userName: reply.createdBy,
-                              userImage: "https://picsum.photos/200/300",
-                              replyText: reply.text,
-                              numberOfUpvotes: reply.totalUpvotes,
-                              numberOfDownvotes: reply.totalDownvotes,
-                            );
-                          },
-                        ),
-                        SizedBox(height: 16.0),
-                      ],
+                          ThreadDetailCard(
+                            threadTitle: thread.thread.title,
+                            threadText: thread.thread.text,
+                            creatorData: creatorData,
+                            numberOfReplies: thread.totalReplies,
+                            numberOfUpvotes: thread.totalUpvotes,
+                            numberOfDownvotes: thread.totalDownvotes,
+                            onUpvote: () {
+                              threadDetailController.voteThread(
+                                  thread.thread.id, true);
+                            },
+                            onDownvote: () {
+                              threadDetailController.voteThread(
+                                  thread.thread.id, false);
+                            },
+                          ),
+                          SizedBox(height: 16.0),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: thread.replies.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final reply = thread.replies[index];
+                              return ReplyDetailCard(
+                                userName: reply.createdBy,
+                                userImage: "https://picsum.photos/200/300",
+                                replyText: reply.text,
+                                numberOfUpvotes: reply.totalUpvotes,
+                                numberOfDownvotes: reply.totalDownvotes,
+                                onUpvote: () {
+                                  threadDetailController.voteReply(
+                                      thread.thread.id, reply.id, true);
+                                },
+                                onDownvote: () {
+                                  threadDetailController.voteReply(
+                                      thread.thread.id, reply.id, false);
+                                },
+                              );
+                            },
+                          ),
+                          SizedBox(height: 16.0),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                ReplyFormInput(),
-              ],
+                  ReplyFormInput(
+                    createReplyController: threadDetailController,
+                    threadId: thread.thread.id,
+                  ),
+                ],
+              ),
             ),
           );
         },

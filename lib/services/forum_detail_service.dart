@@ -57,8 +57,7 @@ class ForumDetailService {
   }
 
   // Create thread
-  Future<Map<String, dynamic>> createThread(
-      int forumId, String title, String text) async {
+  Future<Map<String, dynamic>> createThread(dynamic body) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('jwtToken');
 
@@ -68,7 +67,7 @@ class ForumDetailService {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     };
-    final body = {"forum_id": forumId, "title": title, "text": text};
+    // final body = {"forum_id": forumId, "title": title, "text": text};
 
     final response =
         await http.post(url, headers: headers, body: json.encode(body));

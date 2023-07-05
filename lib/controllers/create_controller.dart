@@ -25,29 +25,29 @@ class CreateForumController extends ChangeNotifier {
   }
 }
 
-class CreateThreadController extends ChangeNotifier {
-  final CreateThreadService createThreadService;
+// class CreateThreadController extends ChangeNotifier {
+//   final CreateThreadService createThreadService;
 
-  CreateThreadController({
-    required this.createThreadService,
-  });
+//   CreateThreadController({
+//     required this.createThreadService,
+//   });
 
-  Future<Map<String, dynamic>> createThread(Map<String, dynamic> data) async {
-    try {
-      final response = await createThreadService.createThread(data);
-      final responseData = response['data'] as Map<String, dynamic>;
+//   Future<Map<String, dynamic>> createThread(Map<String, dynamic> data) async {
+//     try {
+//       final response = await createThreadService.createThread(data);
+//       final responseData = response['data'] as Map<String, dynamic>;
 
-      print(responseData);
+//       print(responseData);
 
-      notifyListeners();
+//       notifyListeners();
 
-      return responseData;
-    } catch (e) {
-      print('Create forum failed: $e');
-      return {};
-    }
-  }
-}
+//       return responseData;
+//     } catch (e) {
+//       print('Create thread failed: $e');
+//       return {};
+//     }
+//   }
+// }
 
 class CreateReplyController extends ChangeNotifier {
   final CreateReplyService createReplyService;
@@ -67,7 +67,7 @@ class CreateReplyController extends ChangeNotifier {
 
       return responseData;
     } catch (e) {
-      print('Create forum failed: $e');
+      print('Create reply failed: $e');
       return {};
     }
   }

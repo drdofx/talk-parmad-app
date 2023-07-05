@@ -7,6 +7,8 @@ class ThreadDetailCard extends StatelessWidget {
   final int numberOfReplies;
   final int numberOfUpvotes;
   final int numberOfDownvotes;
+  final VoidCallback onUpvote;
+  final VoidCallback onDownvote;
 
   ThreadDetailCard({
     required this.threadTitle,
@@ -15,6 +17,8 @@ class ThreadDetailCard extends StatelessWidget {
     this.numberOfReplies = 0,
     this.numberOfUpvotes = 0,
     this.numberOfDownvotes = 0,
+    required this.onUpvote,
+    required this.onDownvote,
   });
 
   @override
@@ -101,9 +105,9 @@ class ThreadDetailCard extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 16.0),
+        SizedBox(height: 4.0),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Column(
             children: [
               Row(
@@ -118,12 +122,19 @@ class ThreadDetailCard extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Icon(
-                        Icons.thumb_up,
-                        size: 24.0,
-                        color: Colors.green,
+                      ElevatedButton(
+                        onPressed: onUpvote,
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          backgroundColor: Colors.green,
+                        ),
+                        child: Icon(
+                          Icons.thumb_up,
+                          size: 24.0,
+                          color: Colors.white,
+                        ),
                       ),
-                      SizedBox(width: 4.0),
+                      // SizedBox(width: 4.0),
                       Text(
                         '$numberOfUpvotes',
                         style: TextStyle(
@@ -132,12 +143,19 @@ class ThreadDetailCard extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: 8.0),
-                      Icon(
-                        Icons.thumb_down,
-                        size: 24.0,
-                        color: Colors.red,
+                      ElevatedButton(
+                        onPressed: onDownvote,
+                        style: ElevatedButton.styleFrom(
+                          shape: CircleBorder(),
+                          backgroundColor: Colors.red,
+                        ),
+                        child: Icon(
+                          Icons.thumb_down,
+                          size: 24.0,
+                          color: Colors.white,
+                        ),
                       ),
-                      SizedBox(width: 4.0),
+                      // SizedBox(width: 4.0),
                       Text(
                         '$numberOfDownvotes',
                         style: TextStyle(
@@ -149,7 +167,7 @@ class ThreadDetailCard extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 8.0),
+              SizedBox(height: 4.0),
               Divider(height: 1.0, color: Colors.grey), // Add a horizontal line
             ],
           ),

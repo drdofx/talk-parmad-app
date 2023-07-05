@@ -71,7 +71,7 @@ class CreateThreadPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: CreateThreadForm(),
+            // child: CreateThreadForm(),
           ),
         ],
       ),
