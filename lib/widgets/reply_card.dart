@@ -37,7 +37,10 @@ class ReplyCard extends StatelessWidget {
                                 replyProfileData.forumImage,
                                 fit: BoxFit.cover,
                               )
-                            : Icon(Icons.image_not_supported),
+                            : Image.network(
+                                'https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg',
+                                fit: BoxFit.cover,
+                              ),
                       ),
                       SizedBox(height: 2.0),
                       Align(
@@ -63,7 +66,7 @@ class ReplyCard extends StatelessWidget {
                       Text(
                         replyProfileData.thread.threadTitle,
                         style: TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           fontSize: 16.0,
                         ),
                         textAlign: TextAlign.justify,

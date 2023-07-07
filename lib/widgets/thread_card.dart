@@ -34,15 +34,17 @@ class ThreadCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        height: 80.0,
-                        width: double.infinity,
-                        child: homeData.forumImage != ""
-                            ? Image.network(
-                                homeData.forumImage,
-                                fit: BoxFit.cover,
-                              )
-                            : Icon(Icons.image_not_supported),
-                      ),
+                          height: 80.0,
+                          width: double.infinity,
+                          child: homeData.forumImage != ""
+                              ? Image.network(
+                                  homeData.forumImage,
+                                  fit: BoxFit.cover,
+                                )
+                              : Image.network(
+                                  'https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg',
+                                  fit: BoxFit.cover,
+                                )),
                       SizedBox(height: 2.0),
                       Align(
                         alignment: Alignment.center,
@@ -62,7 +64,7 @@ class ThreadCard extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Container(
-                    height: 100.0,
+                    height: 120.0,
                     child: Center(
                       child: Text(
                         homeData.threadTitle,

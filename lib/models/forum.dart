@@ -58,6 +58,18 @@ class ForumDetailForum {
       category: json['category'],
     );
   }
+
+  factory ForumDetailForum.fromSearchJson(Map<String, dynamic> json) {
+    return ForumDetailForum(
+      id: json['id'] ?? 0,
+      forumName: json['forum_name'] ?? '',
+      forumImage: json['forum_image'] != null && json['forum_image'] != ''
+          ? json['forum_image']
+          : 'https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg',
+      introductionText: '',
+      category: json['category'] ?? '',
+    );
+  }
 }
 
 class ForumDetailThread {

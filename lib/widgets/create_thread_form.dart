@@ -117,6 +117,10 @@ class _CreateThreadFormState extends State<CreateThreadForm> {
                   child: Text('Post'),
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    backgroundColor: Color(0xFF70A6F5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                 ),
               ],

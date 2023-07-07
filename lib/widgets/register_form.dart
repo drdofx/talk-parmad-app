@@ -19,7 +19,7 @@ class RegisterForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500.0, // Set a fixed height for the form
+      height: 525.0, // Set a fixed height for the form
       child: Card(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),

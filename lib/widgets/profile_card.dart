@@ -32,7 +32,10 @@ class ProfileCard extends StatelessWidget {
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
-                    icon: Icon(Icons.logout),
+                    icon: Icon(
+                      Icons.logout,
+                      color: Color(0xFF70A6F5),
+                    ),
                     onPressed: onLogoutPressed,
                   ),
                 ),
@@ -48,7 +51,10 @@ class ProfileCard extends StatelessWidget {
                 Align(
                   alignment: Alignment.topRight,
                   child: IconButton(
-                    icon: Icon(Icons.edit),
+                    icon: Icon(
+                      Icons.edit,
+                      color: Color(0xFF70A6F5),
+                    ),
                     onPressed: onEditProfilePressed,
                   ),
                 ),

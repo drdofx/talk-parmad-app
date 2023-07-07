@@ -172,6 +172,10 @@ class _CreateForumFormState extends State<CreateForumForm> {
                   child: Text('Create'),
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    backgroundColor: Color(0xFF70A6F5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
                   ),
                 ),
               ],

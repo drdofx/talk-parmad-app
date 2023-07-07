@@ -87,7 +87,7 @@ class _ReplyFormInputState extends State<ReplyFormInput> {
                 ),
                 child: Icon(
                   Icons.send,
-                  color: Colors.black,
+                  color: Color(0xFF70A6F5),
                 ),
               ),
             ],

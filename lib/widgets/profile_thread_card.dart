@@ -41,7 +41,10 @@ class ProfileThreadCard extends StatelessWidget {
                                 threadData.forumImage,
                                 fit: BoxFit.cover,
                               )
-                            : Icon(Icons.image_not_supported),
+                            : Image.network(
+                                'https://t3.ftcdn.net/jpg/02/49/82/50/360_F_249825007_f5dzNTBuUZoV5nERUWTlPDoU3cvLIBzn.jpg',
+                                fit: BoxFit.cover,
+                              ),
                       ),
                       SizedBox(height: 2.0),
                       Align(
@@ -62,7 +65,7 @@ class ProfileThreadCard extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: Container(
-                    height: 100.0,
+                    height: 120.0,
                     child: Center(
                       child: Text(
                         threadData.threadTitle,

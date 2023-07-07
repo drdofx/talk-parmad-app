@@ -7,7 +7,7 @@ class SearchForumService {
 
   SearchForumService({required this.baseUrl});
 
-  Future<Map<String, dynamic>> searchForums(Map<String, dynamic> req) async {
+  Future<dynamic> searchForums(Map<String, dynamic> req) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('jwtToken');
 

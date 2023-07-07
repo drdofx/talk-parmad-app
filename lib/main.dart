@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talk_parmad/controllers/auth_controller.dart';
@@ -16,6 +17,7 @@ import 'package:talk_parmad/screens/forum_list_page.dart';
 import 'package:talk_parmad/screens/forum_page.dart';
 import 'package:talk_parmad/screens/home_page.dart';
 import 'package:talk_parmad/screens/profile_page.dart';
+import 'package:talk_parmad/screens/search_result.dart';
 import 'package:talk_parmad/screens/thread_page.dart';
 import 'package:talk_parmad/services/auth_service.dart';
 import 'package:talk_parmad/services/create_service.dart';
@@ -175,6 +177,12 @@ class _MyAppState extends State<MyApp> {
         return MaterialPageRoute(
           builder: (context) => ThreadPage(threadId: threadId),
         );
+      case '/searchForum':
+        final args = settings.arguments as Map<String, dynamic>;
+        final query = args;
+        return MaterialPageRoute(
+          builder: (context) => SearchResult(query: query),
+        );
       default:
         return null;
     }
@@ -269,6 +277,15 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
           scaffoldBackgroundColor: const Color(0xFFCBE0FF),
+          textTheme: GoogleFonts.poppinsTextTheme(
+            Theme.of(context).textTheme.copyWith(
+                  titleLarge: TextStyle(
+                    color: Colors.black,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+          ),
         ),
         home: Consumer<AuthController>(
           builder: (context, authController, _) {

@@ -77,7 +77,10 @@ class ThreadDetailCard extends StatelessWidget {
                         Align(
                           alignment: Alignment.topRight,
                           child: IconButton(
-                            icon: Icon(Icons.edit),
+                            icon: Icon(
+                              Icons.edit,
+                              color: Color(0xFF70A6F5),
+                            ),
                             onPressed: () {},
                           ),
                         ),

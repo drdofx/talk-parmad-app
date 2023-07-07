@@ -16,7 +16,7 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350.0, // Adjust the height as needed
+      height: 375.0, // Adjust the height as needed
       child: Card(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),

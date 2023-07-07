@@ -23,7 +23,9 @@ class _SearchForumBarState extends State<SearchForumBar> {
   }
 
   void _handleSubmit(String value) {
-    widget.searchForumController.searchForums({'forum_name': value});
+    Navigator.pushNamed(context, '/searchForum', arguments: {
+      'forum_name': value,
+    });
   }
 
   @override
