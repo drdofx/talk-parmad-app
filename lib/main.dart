@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -54,45 +55,47 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     initializeAuthDependencies();
-    _homeController = HomeController(
-      homeService: HomeService(baseUrl: 'http://localhost:8080/api/v1'),
-    );
-    _forumListController = ForumListController(
-      forumListService:
-          ForumListService(baseUrl: 'http://localhost:8080/api/v1'),
-    );
-    _createForumController = CreateForumController(
-      createForumService:
-          CreateForumService(baseUrl: 'http://localhost:8080/api/v1'),
-    );
-    _searchForumControler = SearchForumController(
-      searchForumService:
-          SearchForumService(baseUrl: 'http://localhost:8080/api/v1'),
-    );
-    _userThreadListController = UserThreadListController(
-      userThreadListService:
-          UserThreadListService(baseUrl: 'http://localhost:8080/api/v1'),
-    );
-    _userReplyListController = UserReplyListController(
-      userReplyListService:
-          UserReplyListService(baseUrl: 'http://localhost:8080/api/v1'),
-    );
-    _forumDiscoveryController = ForumDiscoveryController(
-      forumDiscoveryService:
-          ForumDiscoveryService(baseUrl: 'http://localhost:8080/api/v1'),
-    );
   }
 
   Future<void> initializeAuthDependencies() async {
+    await dotenv.load(fileName: '.env');
+
     _sharedPreferences = await SharedPreferences.getInstance();
     _authController = AuthController(
-      authService: AuthService(baseUrl: 'http://localhost:8080/api/v1'),
+      authService: AuthService(baseUrl: dotenv.env['API_BASE_URL']!),
       sharedPreferences: _sharedPreferences,
       // context: context,
     );
     setState(() {
       _isInitialized = true;
     });
+
+    _homeController = HomeController(
+      homeService: HomeService(baseUrl: dotenv.env['API_BASE_URL']!),
+    );
+    _forumListController = ForumListController(
+      forumListService: ForumListService(baseUrl: dotenv.env['API_BASE_URL']!),
+    );
+    _createForumController = CreateForumController(
+      createForumService:
+          CreateForumService(baseUrl: dotenv.env['API_BASE_URL']!),
+    );
+    _searchForumControler = SearchForumController(
+      searchForumService:
+          SearchForumService(baseUrl: dotenv.env['API_BASE_URL']!),
+    );
+    _userThreadListController = UserThreadListController(
+      userThreadListService:
+          UserThreadListService(baseUrl: dotenv.env['API_BASE_URL']!),
+    );
+    _userReplyListController = UserReplyListController(
+      userReplyListService:
+          UserReplyListService(baseUrl: dotenv.env['API_BASE_URL']!),
+    );
+    _forumDiscoveryController = ForumDiscoveryController(
+      forumDiscoveryService:
+          ForumDiscoveryService(baseUrl: dotenv.env['API_BASE_URL']!),
+    );
   }
 
   int _selectedIndex = 0;
@@ -201,7 +204,7 @@ class _MyAppState extends State<MyApp> {
                 _selectedIndex = 4; // Profile
               });
             },
-            icon: const Icon(Icons.person),
+            icon: const Icon(Icons.notifications),
             color: Colors.black,
             iconSize: 28.0,
           ),

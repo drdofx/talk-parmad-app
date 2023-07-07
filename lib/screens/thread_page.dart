@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:talk_parmad/controllers/thread_detail_controller.dart';
 import 'package:talk_parmad/services/thread_detail_service.dart';
@@ -24,7 +25,7 @@ class _ThreadPageState extends State<ThreadPage> {
     super.initState();
     threadDetailController = ThreadDetailController(
       threadDetailService:
-          ThreadDetailService(baseUrl: 'http://localhost:8080/api/v1'),
+          ThreadDetailService(baseUrl: dotenv.env['API_BASE_URL']!),
     );
     threadDetailController.getThreadDetail(widget.threadId);
 

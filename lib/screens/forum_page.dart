@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
-import 'package:talk_parmad/controllers/create_controller.dart';
 import 'package:talk_parmad/controllers/forum_detail_controller.dart';
 import 'package:talk_parmad/services/forum_detail_service.dart';
 import 'package:talk_parmad/widgets/create_thread_form.dart';
@@ -27,7 +27,7 @@ class _ForumPageState extends State<ForumPage> {
     super.initState();
     forumDetailController = ForumDetailController(
       forumDetailService:
-          ForumDetailService(baseUrl: 'http://localhost:8080/api/v1'),
+          ForumDetailService(baseUrl: dotenv.env['API_BASE_URL']!),
     );
     forumDetailController.getForumDetail(widget.forumId);
 

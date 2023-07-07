@@ -71,32 +71,39 @@ class ForumListCard extends StatelessWidget {
                         right: 8.0), // Add bottom padding
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         for (int j = i; j < i + 3 && j < forums.length; j++)
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                '/forum',
-                                arguments: {
-                                  'forumId': forums[j].forumId,
-                                },
-                              );
-                            },
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: 96.0, // Set desired width
-                                  height: 96.0, // Set desired height
-                                  child: Image.network(
-                                    forums[j].forumImage,
-                                    fit: BoxFit
-                                        .cover, // Adjust the fit property as needed
+                          Flexible(
+                            fit: FlexFit
+                                .loose, // Set FlexFit.loose for flexible children
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/forum',
+                                  arguments: {
+                                    'forumId': forums[j].forumId,
+                                  },
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 96.0,
+                                    height: 96.0,
+                                    child: Image.network(
+                                      forums[j].forumImage,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: 8.0),
-                                Text(forums[j].forumName),
-                              ],
+                                  SizedBox(height: 8.0),
+                                  Text(
+                                    forums[j].forumName,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                       ],

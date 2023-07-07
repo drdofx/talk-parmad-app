@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:talk_parmad/controllers/search_controller.dart';
 import 'package:talk_parmad/services/search_service.dart';
@@ -20,7 +21,7 @@ class _SearchResultPageState extends State<SearchResult> {
     super.initState();
     searchForumController = SearchForumController(
       searchForumService:
-          SearchForumService(baseUrl: 'http://localhost:8080/api/v1'),
+          SearchForumService(baseUrl: dotenv.env['API_BASE_URL']!),
     );
     searchForumController.searchForums(widget.query);
   }
@@ -44,58 +45,78 @@ class _SearchResultPageState extends State<SearchResult> {
             ),
             body: RefreshIndicator(
               onRefresh: () => searchForumController.refreshData(widget.query),
-              child: ListView(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 16,
-                      top: 8,
-                      bottom: 12,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Search result...",
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 16, top: 8, bottom: 12),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Search result...",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: forum.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final forumItem = forum[index];
-                      return Card(
-                        child: Container(
-                          padding: const EdgeInsets.all(16.0),
-                          width: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.network(
-                                forumItem.forumImage,
-                                width: 200,
-                                height: 200,
-                              ),
-                              const SizedBox(height: 16.0),
-                              Text(
-                                forumItem.forumName,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 20.0,
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: forum.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final forumItem = forum[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/forum',
+                                arguments: {'forumId': forumItem.id});
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 6.0,
+                              horizontal: 8.0,
+                            ),
+                            child: Card(
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 4.0,
+                                  horizontal: 8.0,
+                                ),
+                                width: double.infinity,
+                                height: 150.0, // Adjust the height as desired
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Image.network(
+                                      forumItem.forumImage,
+                                      width: 200, // Adjust the width as desired
+                                      height:
+                                          100, // Adjust the height as desired
+                                    ),
+                                    // const SizedBox(height: 16.0),
+                                    Text(
+                                      forumItem.forumName,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize:
+                                            16.0, // Adjust the font size as desired
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           );
