@@ -1,16 +1,5 @@
-# talk_parmad
+# Talk Parmad
 
-A new Flutter project.
+Talk Parmad is a mobile app built with Flutter, designed to provide a platform for discussion and communication for Paramadina University students. 
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Developed for the purpose of completing the final project of the Mobile Programming course at Paramadina University.
